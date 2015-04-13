@@ -1,3 +1,5 @@
+package com.tony.server;
+
 import com.tony.server.Server;
 import org.junit.After;
 import org.junit.Before;
@@ -27,7 +29,7 @@ public class ServerTest {
         Server server = new Server(5000);
         new Thread(server).start();
         Socket clientMockSocket = new Socket("localhost", 5000);
-        clientMockSocket.sendUrgentData(1);
+        clientMockSocket.getOutputStream().write("something\n\n".getBytes());
         assertEquals("Accepted a new client request\n", outContent.toString());
     }
 

@@ -2,7 +2,8 @@ package com.tony.server;
 
 public class Main {
     public static void main(String[] args) {
-        Server server = new Server(5000);
+        ArgumentParser argumentParser = new ArgumentParser(args);
+        Server server = new Server(argumentParser.getPort());
         new Thread(server).start();
 
 //        try {

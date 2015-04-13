@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 
 public class Server implements Runnable{
     private final int port;
-    private ServerSocket socket;
+    private ServerSocket serverSocket;
     private boolean isRunning = true;
     private ExecutorService threadPool = Executors.newFixedThreadPool(100);
 
@@ -22,8 +22,10 @@ public class Server implements Runnable{
         while(isRunning) {
             Socket clientSocket;
             try {
-                clientSocket = socket.accept();
+                clientSocket = serverSocket.accept();
                 System.out.println("Accepted a new client request");
+
+                threadPool.execute(new WorkerThread(clientSocket));
             } catch (IOException e) {
                 if (isRunning) {
                     System.err.println("Server stopped");
@@ -32,15 +34,13 @@ public class Server implements Runnable{
                 throw new RuntimeException(
                         "Error accepting client connection", e);
             }
-
-            threadPool.execute(new WorkerThread(clientSocket));
         }
         threadPool.shutdown();
     }
 
     private void openSocket() {
         try {
-            this.socket = new ServerSocket(port);
+            this.serverSocket = new ServerSocket(port);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,7 +49,7 @@ public class Server implements Runnable{
     public void stopServer() {
         isRunning = false;
         try {
-            socket.close();
+            serverSocket.close();
         } catch (IOException e) {
             throw new RuntimeException("Error closing server", e);
         }
