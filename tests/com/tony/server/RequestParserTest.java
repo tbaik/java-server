@@ -9,17 +9,17 @@ import java.io.InputStreamReader;
 import static org.junit.Assert.*;
 
 public class RequestParserTest {
-    byte out[] = ("GET /logs HTTP/1.1\n" +
+    byte input[] = ("GET /logs HTTP/1.1\n" +
             "Host: localhost:5000\n" +
             "Connection: Keep-Alive\n" +
             "User-Agent: Apache-HttpClient/4.3.5 (java 1.5)\n" +
             "Accept-Encoding: gzip,deflate\n\n" +
             "Body Text\n" +
             "Body text2").getBytes();
-    ByteArrayInputStream inputStream = new ByteArrayInputStream(out);
+    ByteArrayInputStream inputStream = new ByteArrayInputStream(input);
 
     @Test
-    public void requestReturnedByParseRequestTest() throws Exception {
+    public void testRequestReturnedByParseRequest() throws Exception {
         Request request = RequestParser.parseRequest(inputStream);
 
         assertEquals("GET", request.getHttpMethod());
@@ -30,21 +30,21 @@ public class RequestParserTest {
     }
 
     @Test
-    public void parsesHTTPMethodTest() throws Exception {
+    public void testParseFirstLineParsesHTTPMethod() throws Exception {
         Request request = new Request();
         RequestParser.parseFirstLine(request, "GET /logs HTTP/1.1\n");
         assertEquals("GET", request.getHttpMethod());
     }
 
     @Test
-    public void parsesURITest() throws Exception {
+    public void testParseFirstLineparsesURI() throws Exception {
         Request request = new Request();
         RequestParser.parseFirstLine(request, "GET /logs HTTP/1.1\n");
         assertEquals("/logs", request.getURI());
     }
 
     @Test
-    public void parsesHeaderTest() throws Exception {
+    public void testParseHeaders() throws Exception {
         String headers = "Host: localhost:5000\n" +
             "Connection: Keep-Alive\n" +
             "User-Agent: Apache-HttpClient/4.3.5 (java 1.5)\n" +
@@ -55,7 +55,7 @@ public class RequestParserTest {
     }
 
     @Test
-    public void grabAllHeadersTest() throws Exception {
+    public void testSplitHeadersAndBodyGrabAllHeaders() throws Exception {
        String headers = "Host: localhost:5000\n" +
             "Connection: Keep-Alive\n" +
             "User-Agent: Apache-HttpClient/4.3.5 (java 1.5)\n" +
@@ -67,13 +67,13 @@ public class RequestParserTest {
     }
 
     @Test
-    public void grabHeadersWhenNoBodyTest() throws Exception {
-        byte out2[] = ("GET /logs HTTP/1.1\n" +
+    public void testSplitHeadersAndBodyGrabsHeadersWhenNoBody() throws Exception {
+        byte input2[] = ("GET /logs HTTP/1.1\n" +
                 "Host: localhost:5000\n" +
                 "Connection: Keep-Alive\n" +
                 "User-Agent: Apache-HttpClient/4.3.5 (java 1.5)\n" +
                 "Accept-Encoding: gzip,deflate\n").getBytes();
-        ByteArrayInputStream inputStream2 = new ByteArrayInputStream(out2);
+        ByteArrayInputStream inputStream2 = new ByteArrayInputStream(input2);
 
         String headers = "Host: localhost:5000\n" +
                 "Connection: Keep-Alive\n" +
@@ -86,7 +86,7 @@ public class RequestParserTest {
     }
 
     @Test
-    public void grabBodyTest() throws Exception {
+    public void testSplitHeadersAndBodyGrabsBody() throws Exception {
         String bodyText = "Body Text\n" +
                 "Body text2\n";
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));

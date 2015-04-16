@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class RequestTest {
 
     @Test
-    public void gettersAndSettersTest() throws Exception {
+    public void testGettersAndSetters() throws Exception {
         Request request = new Request();
 
         request.setHttpMethod("GET");
@@ -21,7 +21,7 @@ public class RequestTest {
     }
 
     @Test
-    public void addToHeadersTest() throws Exception {
+    public void testAddToHeaders() throws Exception {
         Request request = new Request();
 
         request.addToHeaders("Allow", "blahblah");
