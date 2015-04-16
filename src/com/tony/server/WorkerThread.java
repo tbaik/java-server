@@ -18,7 +18,7 @@ public class WorkerThread implements Runnable {
         try {
             BufferedReader inputReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-            getOutputStream().write(("HTTP/1.1 200 Unauthorized\n\nfile1 contents").getBytes());
+            getOutputStream().write("HTTP/1.1 200 Unauthorized\n\nfile1 contents".getBytes());
             clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();

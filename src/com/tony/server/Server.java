@@ -23,7 +23,6 @@ public class Server implements Runnable{
             Socket clientSocket;
             try {
                 clientSocket = serverSocket.accept();
-                System.out.println("Accepted a new client request");
 
                 threadPool.execute(new WorkerThread(clientSocket));
             } catch (IOException e) {

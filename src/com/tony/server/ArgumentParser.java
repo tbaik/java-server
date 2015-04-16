@@ -5,6 +5,10 @@ public class ArgumentParser {
     private String directory = System.getProperty("user.dir") + "/public/";
 
     public ArgumentParser(String[] args) {
+        parseArguments(args);
+    }
+
+    public void parseArguments(String[] args) {
         if(args.length == 0){
         }
         else {

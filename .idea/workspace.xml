@@ -7,18 +7,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11947821-eedf-4f26-a760-61d79d7d74ac" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tony/server/ArgumentParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/com/tony/server/ArgumentParserTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tony/server/RequestParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/com/tony/server/RequestParserTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/com/tony/server/WorkerThreadTest.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tests/WorkerThreadTest.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/tests/ServerTest.java" afterPath="$PROJECT_DIR$/tests/com/tony/server/ServerTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/tony/server/Request.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/com/tony/server/RequestTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/server/server.jar" afterPath="$PROJECT_DIR$/out/artifacts/server/server.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tony/server/Main.java" afterPath="$PROJECT_DIR$/src/com/tony/server/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tony/server/ArgumentParser.java" afterPath="$PROJECT_DIR$/src/com/tony/server/ArgumentParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tony/server/RequestParser.java" afterPath="$PROJECT_DIR$/src/com/tony/server/RequestParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/com/tony/server/RequestParserTest.java" afterPath="$PROJECT_DIR$/tests/com/tony/server/RequestParserTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tony/server/Server.java" afterPath="$PROJECT_DIR$/src/com/tony/server/Server.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tony/server/WorkerThread.java" afterPath="$PROJECT_DIR$/src/com/tony/server/WorkerThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="java-server.iws" />
@@ -47,7 +43,7 @@
             <entry file="file://$PROJECT_DIR$/src/com/tony/server/Main.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+                  <caret line="4" column="40" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
                   <folding />
                 </state>
               </provider>
@@ -57,7 +53,7 @@
             <entry file="file://$PROJECT_DIR$/src/com/tony/server/Server.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+                  <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#444#445#0" expanded="true" />
@@ -71,7 +67,7 @@
             <entry file="file://$PROJECT_DIR$/src/com/tony/server/WorkerThread.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+                  <caret line="20" column="35" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -79,22 +75,14 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="RequestParser.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="RequestParser.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/com/tony/server/RequestParser.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="RequestParserTest.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/tests/com/tony/server/RequestParserTest.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.13513513">
-                  <caret line="7" column="31" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
-                  <folding />
+                <state vertical-scroll-proportion="0.38071066">
+                  <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -103,35 +91,31 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="ArgumentParserTest.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/tests/com/tony/server/ArgumentParserTest.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="WorkerThreadTest.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tests/com/tony/server/WorkerThreadTest.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
+                  <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+                  <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="ServerTest.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="ServerTest.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tests/com/tony/server/ServerTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.5405405">
-                  <caret line="32" column="77" selection-start-line="32" selection-start-column="77" selection-end-line="32" selection-end-column="77" />
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="RequestParserTest.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/tests/com/tony/server/RequestParserTest.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.5431472">
+                  <caret line="84" column="36" selection-start-line="84" selection-start-column="36" selection-end-line="84" selection-end-column="36" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -172,13 +156,16 @@
         <option value="$PROJECT_DIR$/tests/ServerTest.java" />
         <option value="$PROJECT_DIR$/tests/WorkerThreadTest.java" />
         <option value="$PROJECT_DIR$/tests/com/tony/server/ArgumentParserTest.java" />
-        <option value="$PROJECT_DIR$/src/com/tony/server/ArgumentParser.java" />
         <option value="$PROJECT_DIR$/src/com/tony/server/Main.java" />
-        <option value="$PROJECT_DIR$/src/com/tony/server/Server.java" />
         <option value="$PROJECT_DIR$/tests/com/tony/server/WorkerThreadTest.java" />
         <option value="$PROJECT_DIR$/tests/com/tony/server/ServerTest.java" />
+        <option value="$PROJECT_DIR$/src/com/tony/server/ArgumentParser.java" />
+        <option value="$PROJECT_DIR$/src/com/tony/server/Server.java" />
+        <option value="$PROJECT_DIR$/tests/com/tony/server/RequestTest.java" />
         <option value="$PROJECT_DIR$/src/com/tony/server/WorkerThread.java" />
         <option value="$PROJECT_DIR$/tests/com/tony/server/RequestParserTest.java" />
+        <option value="$PROJECT_DIR$/src/com/tony/server/RequestParser.java" />
+        <option value="$PROJECT_DIR$/src/com/tony/server/Request.java" />
       </list>
     </option>
   </component>
@@ -328,8 +315,8 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ServerTest.testItAcceptsAClientRequest">
-    <configuration default="false" name="ArgumentParserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.RequestParserTest">
+    <configuration default="false" name="RequestParserTest.requestReturnedByParseRequestTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="com.tony.server.*" />
@@ -340,7 +327,59 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="com.tony.server" />
-      <option name="MAIN_CLASS_NAME" value="com.tony.server.ArgumentParserTest" />
+      <option name="MAIN_CLASS_NAME" value="com.tony.server.RequestParserTest" />
+      <option name="METHOD_NAME" value="requestReturnedByParseRequestTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="RequestTest.addToHeadersTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.tony.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="java-server" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.tony.server" />
+      <option name="MAIN_CLASS_NAME" value="com.tony.server.RequestTest" />
+      <option name="METHOD_NAME" value="addToHeadersTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="RequestParserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.tony.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="java-server" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.tony.server" />
+      <option name="MAIN_CLASS_NAME" value="com.tony.server.RequestParserTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -355,7 +394,7 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="ArgumentParserTest.getPortDefault5000Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="RequestParserTest.grabHeadersWhenNoBodyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="com.tony.server.*" />
@@ -366,8 +405,8 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="com.tony.server" />
-      <option name="MAIN_CLASS_NAME" value="com.tony.server.ArgumentParserTest" />
-      <option name="METHOD_NAME" value="getPortDefault5000Test" />
+      <option name="MAIN_CLASS_NAME" value="com.tony.server.RequestParserTest" />
+      <option name="METHOD_NAME" value="grabHeadersWhenNoBodyTest" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -381,7 +420,7 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="WorkerThreadTest.testClientSocketSendsMessageBack" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="RequestParserTest.grabAllHeadersTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="com.tony.server.*" />
@@ -392,61 +431,9 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="com.tony.server" />
-      <option name="MAIN_CLASS_NAME" value="com.tony.server.WorkerThreadTest" />
-      <option name="METHOD_NAME" value="testClientSocketSendsMessageBack" />
+      <option name="MAIN_CLASS_NAME" value="com.tony.server.RequestParserTest" />
+      <option name="METHOD_NAME" value="grabAllHeadersTest" />
       <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="ServerTest.testItAcceptsAClientRequest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.tony.server.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="java-server" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.tony.server" />
-      <option name="MAIN_CLASS_NAME" value="com.tony.server.ServerTest" />
-      <option name="METHOD_NAME" value="testItAcceptsAClientRequest" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="WorkerThreadTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.tony.server.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="java-server" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.tony.server" />
-      <option name="MAIN_CLASS_NAME" value="com.tony.server.WorkerThreadTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -608,19 +595,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.ArgumentParserTest" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.ArgumentParserTest.getPortDefault5000Test" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.WorkerThreadTest.testClientSocketSendsMessageBack" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.ServerTest.testItAcceptsAClientRequest" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.WorkerThreadTest" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.RequestParserTest.requestReturnedByParseRequestTest" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.RequestTest.addToHeadersTest" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.RequestParserTest" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.RequestParserTest.grabHeadersWhenNoBodyTest" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.RequestParserTest.grabAllHeadersTest" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.ServerTest.testItAcceptsAClientRequest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.WorkerThreadTest.testClientSocketSendsMessageBack" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.WorkerThreadTest" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.ArgumentParserTest" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.ArgumentParserTest.getPortDefault5000Test" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.RequestParserTest" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.RequestParserTest.grabAllHeadersTest" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.RequestParserTest.grabHeadersWhenNoBodyTest" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.RequestParserTest.requestReturnedByParseRequestTest" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.RequestTest.addToHeadersTest" />
       </list>
     </recent_temporary>
   </component>
@@ -658,7 +645,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3279503" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2310559" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.124305554" sideWeight="0.48243994" order="0" side_tool="false" content_ui="combo" />
@@ -766,9 +753,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -808,38 +793,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tests/com/tony/server/ServerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tony/server/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <caret line="4" column="40" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/com/tony/server/ArgumentParserTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/com/tony/server/WorkerThreadTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/com/tony/server/ServerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5405405">
-          <caret line="32" column="77" selection-start-line="32" selection-start-column="77" selection-end-line="32" selection-end-column="77" />
+        <state vertical-scroll-proportion="0.1754386">
+          <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -848,21 +821,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tony/server/ArgumentParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0877193">
-          <caret line="3" column="21" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.64327484">
+          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
           <folding>
-            <element signature="e#593#594#0" expanded="true" />
-            <element signature="e#620#621#0" expanded="true" />
-            <element signature="e#656#657#0" expanded="true" />
-            <element signature="e#688#689#0" expanded="true" />
+            <element signature="e#203#204#0" expanded="true" />
+            <element signature="e#239#240#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/com/tony/server/WorkerThreadTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tony/server/Server.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+          <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#444#445#0" expanded="true" />
@@ -871,10 +850,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tests/com/tony/server/RequestTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20304568">
+          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tony/server/WorkerThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+          <caret line="20" column="35" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/com/tony/server/RequestParserTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5431472">
+          <caret line="84" column="36" selection-start-line="84" selection-start-column="36" selection-end-line="84" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tony/server/Request.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17766498">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -883,17 +892,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tony/server/RequestParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/com/tony/server/RequestParserTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13513513">
-          <caret line="7" column="31" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
-          <folding />
+        <state vertical-scroll-proportion="0.38071066">
+          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
