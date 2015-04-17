@@ -11,12 +11,11 @@ public class WorkerThread implements Runnable {
         this.clientSocket = clientSocket;
     }
 
-
-
     @Override
     public void run() {
         try {
-            Request request = RequestParser.parseRequest(getInputStream());
+//            System.out.println(getInputStream().available());
+//            Request request = RequestParser.parseRequest(getInputStream());
             getOutputStream().write("HTTP/1.1 200 Unauthorized\n\nfile1 contents".getBytes());
             clientSocket.close();
         } catch (IOException e) {

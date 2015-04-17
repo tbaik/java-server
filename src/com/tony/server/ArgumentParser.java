@@ -4,8 +4,7 @@ public class ArgumentParser {
     private int port = 5000;
     private String directory = System.getProperty("user.dir") + "/public/";
 
-    public ArgumentParser(String[] args) {
-        parseArguments(args);
+    public ArgumentParser() {
     }
 
     public void parseArguments(String[] args) {
@@ -13,9 +12,9 @@ public class ArgumentParser {
         }
         else {
            for(int count = 0; count < args.length; count++){
-               if(args[count] == "-p") {
+               if(args[count].equals("-p")) {
                    port = Integer.parseInt(args[count + 1]);
-               } else if (args[count] == "-d") {
+               } else if (args[count].equals("-d")) {
                    directory = args[count + 1];
                }
            }

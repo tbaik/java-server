@@ -1,36 +1,23 @@
 package com.tony.server;
 
-import com.tony.server.Server;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.net.Socket;
 
 import static org.junit.Assert.*;
 
 public class ServerTest {
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-
-    @Before
-    public void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-    }
-
-    @After
-    public void cleanUpStreams() {
-        System.setOut(null);
-    }
 
     @Test
     public void testItAcceptsAClientRequest() throws Exception {
-        Server server = new Server(5000);
+        Server server = new Server(4000);
         new Thread(server).start();
-        Socket clientMockSocket = new Socket("localhost", 5000);
+        Socket clientMockSocket = new Socket("localhost", 4000);
         clientMockSocket.getOutputStream().write("something\n\n".getBytes());
-        assertEquals("Accepted a new client request\n", outContent.toString());
+        assertEquals(4000, server.getServerSocket().getLocalPort());
+        assertEquals(clientMockSocket.getChannel() ,
+                server.getServerSocket().getChannel());
     }
 
 }

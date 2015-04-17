@@ -53,4 +53,8 @@ public class Server implements Runnable{
             throw new RuntimeException("Error closing server", e);
         }
     }
+
+    public ServerSocket getServerSocket() {
+        return serverSocket;
+    }
 }
