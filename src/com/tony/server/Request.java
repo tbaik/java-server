@@ -1,6 +1,5 @@
 package com.tony.server;
 
-import javax.swing.*;
 import java.util.HashMap;
 
 public class Request {
@@ -8,6 +7,25 @@ public class Request {
     private String uri;
     private String body = "";
     private HashMap<String,String> headers;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Request request = (Request) o;
+
+        if (httpMethod != null ? !httpMethod.equals(request.httpMethod) : request.httpMethod != null) return false;
+        return !(uri != null ? !uri.equals(request.uri) : request.uri != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = httpMethod != null ? httpMethod.hashCode() : 0;
+        result = 31 * result + (uri != null ? uri.hashCode() : 0);
+        return result;
+    }
 
     public Request() {
         headers = new HashMap<String, String>();
