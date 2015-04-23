@@ -2,10 +2,9 @@ package com.tony.server;
 
 import org.junit.Test;
 
-import java.io.ByteArrayOutputStream;
 import java.net.Socket;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ServerTest {
 

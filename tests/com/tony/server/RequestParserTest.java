@@ -33,6 +33,7 @@ public class RequestParserTest {
     public void testParseFirstLineParsesHTTPMethod() throws Exception {
         Request request = new Request();
         RequestParser.parseFirstLine(request, "GET /logs HTTP/1.1\n");
+
         assertEquals("GET", request.getHttpMethod());
     }
 
@@ -40,6 +41,7 @@ public class RequestParserTest {
     public void testParseFirstLineparsesURI() throws Exception {
         Request request = new Request();
         RequestParser.parseFirstLine(request, "GET /logs HTTP/1.1\n");
+
         assertEquals("/logs", request.getURI());
     }
 
@@ -51,23 +53,24 @@ public class RequestParserTest {
             "Accept-Encoding: gzip,deflate";
         Request request = new Request();
         RequestParser.parseHeaders(request, headers);
+
         assertEquals("localhost:5000" ,request.getHeaders().get("Host"));
     }
 
     @Test
-    public void testSplitHeadersAndBodyGrabAllHeaders() throws Exception {
+    public void testItGrabAllHeaders() throws Exception {
        String headers = "Host: localhost:5000\n" +
             "Connection: Keep-Alive\n" +
             "User-Agent: Apache-HttpClient/4.3.5 (java 1.5)\n" +
-            "Accept-Encoding: gzip,deflate";
+            "Accept-Encoding: gzip,deflate\n\n";
        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
        reader.readLine();
-       int header = 0;
-       assertEquals(headers, RequestParser.splitHeadersAndBody(reader)[header]);
+
+       assertEquals(headers, RequestParser.grabHeaders(reader));
     }
 
     @Test
-    public void testSplitHeadersAndBodyGrabsHeadersWhenNoBody() throws Exception {
+    public void testItGrabsAllHeadersButNoBodyWhenNoBody() throws Exception {
         byte input2[] = ("GET /logs HTTP/1.1\n" +
                 "Host: localhost:5000\n" +
                 "Connection: Keep-Alive\n" +
@@ -81,17 +84,19 @@ public class RequestParserTest {
                 "Accept-Encoding: gzip,deflate\n";
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream2));
         reader.readLine();
-        int header = 0;
-        assertEquals(headers, RequestParser.splitHeadersAndBody(reader)[header]);
+
+        assertEquals(headers, RequestParser.grabHeaders(reader));
+        assertEquals("", RequestParser.grabBody(reader, 0));
     }
 
     @Test
-    public void testSplitHeadersAndBodyGrabsBody() throws Exception {
+    public void testItGrabBodyWhenThereIsABody() throws Exception {
         String bodyText = "Body Text\n" +
-                "Body text2\n";
+                "Body text2";
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         reader.readLine();
-        int body = 1;
-        assertEquals(bodyText, RequestParser.splitHeadersAndBody(reader)[body]);
+        RequestParser.grabHeaders(reader);
+
+        assertEquals(bodyText, RequestParser.grabBody(reader, 20));
     }
 }

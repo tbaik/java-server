@@ -12,28 +12,27 @@ public final class RequestParser {
     private static int KEY = 0;
     private static int VALUE = 1;
 
-    private static int HEADER = 0;
-    private static int BODY = 1;
-
     private RequestParser() {
     }
 
     public static Request parseRequest(InputStream inputStream) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         Request request = new Request();
+
         try {
             String firstLine = reader.readLine();
-            String[] headersAndBody = splitHeadersAndBody(reader);
+            String allHeaderLines = grabHeaders(reader);
 
             parseFirstLine(request, firstLine);
-            parseHeaders(request, headersAndBody[HEADER]);
-            if(headersAndBody.length == 2) {
-                request.setBody(headersAndBody[BODY]);
+            parseHeaders(request, allHeaderLines);
+            if(reader.ready()){
+                int contentLength = Integer.parseInt(request.getHeaders().get("Content-Length"));
+                String allBodyLines = grabBody(reader, contentLength);
+                request.setBody(allBodyLines);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
         return request;
     }
 
@@ -42,7 +41,6 @@ public final class RequestParser {
 
        request.setHttpMethod(splitFirstLine[HTTPMETHOD]);
        request.setUri(splitFirstLine[URI]);
-
     }
 
     public static void parseHeaders(Request request, String headers) {
@@ -54,21 +52,28 @@ public final class RequestParser {
         }
     }
 
-    public static String[] splitHeadersAndBody(BufferedReader reader) {
-        String[] headersAndBody;
+    public static String grabHeaders(BufferedReader reader) {
         String allLines = "";
-        String line;
-
         try {
-            while((line = reader.readLine()) != null) {
-                   allLines += line + "\n";
+            for(String line = reader.readLine(); line != null; line = reader.readLine()){
+                allLines += line + "\n";
+                if(line.equals("")){
+                   break;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return allLines;
+    }
 
-        headersAndBody = allLines.split("\n\n");
-
-        return headersAndBody;
+    public static String grabBody(BufferedReader reader, int contentLength) {
+        char[] body = new char[contentLength];
+        try {
+            reader.read(body);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new String(body);
     }
 }

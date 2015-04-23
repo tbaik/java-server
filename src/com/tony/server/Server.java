@@ -20,10 +20,8 @@ public class Server implements Runnable{
     public void run() {
         openSocket();
         while(isRunning) {
-            Socket clientSocket;
             try {
-                clientSocket = serverSocket.accept();
-
+                Socket clientSocket = serverSocket.accept();
                 threadPool.execute(new WorkerThread(clientSocket));
             } catch (IOException e) {
                 if (isRunning) {
@@ -34,7 +32,6 @@ public class Server implements Runnable{
                         "Error accepting client connection", e);
             }
         }
-        threadPool.shutdown();
     }
 
     private void openSocket() {

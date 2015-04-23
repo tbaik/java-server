@@ -14,9 +14,9 @@ public class WorkerThread implements Runnable {
     @Override
     public void run() {
         try {
-//            System.out.println(getInputStream().available());
-//            Request request = RequestParser.parseRequest(getInputStream());
+            Request request = RequestParser.parseRequest(getInputStream());
             getOutputStream().write("HTTP/1.1 200 Unauthorized\n\nfile1 contents".getBytes());
+            getOutputStream().close();
             clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
