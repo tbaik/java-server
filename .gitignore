@@ -1,2 +1,3 @@
 *.class
 /META-INF
+.idea/*
