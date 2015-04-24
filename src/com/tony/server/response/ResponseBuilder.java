@@ -23,7 +23,7 @@ public class ResponseBuilder {
     }
 
     public static String buildBody(String body) {
-        if(body == null){
+        if((body == null) || (body.equals(""))){
             return "";
         } else{
             return "\n" + body;

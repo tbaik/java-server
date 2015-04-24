@@ -12,6 +12,7 @@ public class RequestParserTest {
     byte input[] = ("GET /logs HTTP/1.1\n" +
             "Host: localhost:5000\n" +
             "Connection: Keep-Alive\n" +
+            "Content-Length: 20\n" +
             "User-Agent: Apache-HttpClient/4.3.5 (java 1.5)\n" +
             "Accept-Encoding: gzip,deflate\n\n" +
             "Body Text\n" +
@@ -26,7 +27,7 @@ public class RequestParserTest {
         assertEquals("/logs", request.getURI());
         assertEquals("localhost:5000", request.getHeaders().get("Host"));
         assertEquals("Keep-Alive", request.getHeaders().get("Connection"));
-        assertEquals("Body Text\nBody text2\n", request.getBody());
+        assertEquals("Body Text\nBody text2", request.getBody());
     }
 
     @Test
@@ -59,14 +60,15 @@ public class RequestParserTest {
 
     @Test
     public void testItGrabAllHeaders() throws Exception {
-       String headers = "Host: localhost:5000\n" +
-            "Connection: Keep-Alive\n" +
-            "User-Agent: Apache-HttpClient/4.3.5 (java 1.5)\n" +
-            "Accept-Encoding: gzip,deflate\n\n";
-       BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-       reader.readLine();
+        String headers = "Host: localhost:5000\n" +
+                "Connection: Keep-Alive\n" +
+                "Content-Length: 20\n" +
+                "User-Agent: Apache-HttpClient/4.3.5 (java 1.5)\n" +
+                "Accept-Encoding: gzip,deflate\n\n";
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        reader.readLine();
 
-       assertEquals(headers, RequestParser.grabHeaders(reader));
+        assertEquals(headers, RequestParser.grabHeaders(reader));
     }
 
     @Test

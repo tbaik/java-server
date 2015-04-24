@@ -1,6 +1,8 @@
 package com.tony.server;
 
 import com.tony.server.response.GetResponse;
+import com.tony.server.response.OptionsResponse;
+import com.tony.server.response.PutPostResponse;
 import com.tony.server.response.Response;
 import org.junit.Test;
 
@@ -57,5 +59,17 @@ public class RouterTest {
         getRequest.setHttpMethod("GET");
         router.addRoute(getRequest, new GetResponse());
 
+    }
+
+    @Test
+    public void testAllowedMethodsForURI() throws Exception {
+        Router router = new Router();
+        router.addRoute(new Request("GET", "/method_options"), new GetResponse());
+        router.addRoute(new Request("HEAD", "/method_options"), new GetResponse());
+        router.addRoute(new Request("POST", "/method_options"), new PutPostResponse());
+        router.addRoute(new Request("PUT", "/method_options"), new PutPostResponse());
+        String uri = "/method_options";
+        assertEquals("GET,POST,HEAD,PUT,OPTIONS",
+                router.allowedMethodsForURI(uri));
     }
 }

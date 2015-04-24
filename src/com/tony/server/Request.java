@@ -28,7 +28,13 @@ public class Request {
     }
 
     public Request() {
-        headers = new HashMap<String, String>();
+        headers = new HashMap<>();
+    }
+
+    public Request(String httpMethod, String uri) {
+        this.httpMethod = httpMethod;
+        this.uri = uri;
+        headers = new HashMap<>();
     }
 
     public void setHttpMethod(String httpMethod) {

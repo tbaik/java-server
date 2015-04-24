@@ -11,6 +11,14 @@ public class Router {
         routes = new HashMap<>();
     }
 
+    public Response route(Request request) {
+        if(hasRoute(request)){
+            return routes.get(request);
+        } else{
+            return null;
+        }
+    }
+
     public boolean hasRoute(Request request) {
         return routes.containsKey(request);
     }
@@ -19,11 +27,14 @@ public class Router {
         routes.put(request, response);
     }
 
-    public Response route(Request request) {
-        if(hasRoute(request)){
-            return routes.get(request);
-        } else{
-            return null;
+    public String allowedMethodsForURI(String uri){
+        String allowedMethods = "";
+        for (Request request : routes.keySet()) {
+            if(request.getURI().equals(uri)){
+                allowedMethods += request.getHttpMethod() + ",";
+            }
         }
+        allowedMethods += "OPTIONS";
+        return allowedMethods;
     }
 }

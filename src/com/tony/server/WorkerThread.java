@@ -1,21 +1,26 @@
 package com.tony.server;
 
+import com.tony.server.response.Response;
+
 import java.io.*;
 import java.net.Socket;
 
 public class WorkerThread implements Runnable {
 
+    private final ResponseDeterminer responseDeterminer;
     private Socket clientSocket;
 
-    public WorkerThread(Socket clientSocket) throws IOException {
+    public WorkerThread(Socket clientSocket, ResponseDeterminer responseDeterminer) throws IOException {
         this.clientSocket = clientSocket;
+        this.responseDeterminer = responseDeterminer;
     }
 
     @Override
     public void run() {
         try {
             Request request = RequestParser.parseRequest(getInputStream());
-            getOutputStream().write("HTTP/1.1 200 Unauthorized\n\nfile1 contents".getBytes());
+            Response response = responseDeterminer.determineResponse(request);
+            getOutputStream().write(response.respond().getBytes());
             getOutputStream().close();
             clientSocket.close();
         } catch (IOException e) {

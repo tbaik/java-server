@@ -14,4 +14,10 @@ public class ResponseDeterminer {
         this.uriList = uriList;
     }
 
+    public Response determineResponse(Request request) {
+        if(router.hasRoute(request)){
+            return router.route(request);
+        }
+        return new GetResponse();
+    }
 }

@@ -4,21 +4,24 @@ import org.junit.Test;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
 public class WorkerThreadTest {
     @Test
     public void testClientSocketSendsMessageBack() throws Exception {
-        MockWorker worker = new MockWorker(new Socket());
+        Router router = Main.createCobSpecRouter();
+        ArrayList uriList = new ArrayList();
+        MockWorker worker = new MockWorker(new Socket(),
+                new ResponseDeterminer(router, uriList));
         worker.run();
-        assertEquals("HTTP/1.1 200 Unauthorized\n" +
-                "\n" +
-                "file1 contents", worker.getOutputStream().toString());
+        assertEquals("HTTP/1.1 200 OK\n",
+                worker.getOutputStream().toString());
     }
 
    private class MockWorker extends WorkerThread {
-       byte input[] = ("GET /logs HTTP/1.1\n" +
+       byte input[] = ("GET / HTTP/1.1\n" +
                "Host: localhost:5000\n" +
                "Connection: Keep-Alive\n" +
                "User-Agent: Apache-HttpClient/4.3.5 (java 1.5)\n" +
@@ -26,8 +29,9 @@ public class WorkerThreadTest {
        private ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
        private ByteArrayInputStream inputStream = new ByteArrayInputStream(input);
 
-       public MockWorker(Socket clientSocket) throws IOException {
-           super(clientSocket);
+       public MockWorker(Socket clientSocket, ResponseDeterminer responseDeterminer)
+               throws IOException {
+           super(clientSocket, responseDeterminer);
        }
 
        public OutputStream getOutputStream() {

@@ -1,10 +1,12 @@
 package com.tony.server;
 
+import com.tony.server.response.GetResponse;
+import com.tony.server.response.PutPostResponse;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class MainTest {
     @Test
@@ -19,5 +21,23 @@ public class MainTest {
         assertEquals("/partial_content.txt", uriList.get(6));
         assertEquals("/patch-content.txt", uriList.get(7));
         assertEquals("/text-file.txt", uriList.get(8));
+    }
+
+    @Test
+    public void testCreateCobSpecRouter() throws Exception {
+        Router cobSpecRouter = Main.createCobSpecRouter();
+        Request getRequest = new Request();
+        getRequest.setHttpMethod("GET");
+        getRequest.setUri("/");
+
+        Request putRequest = new Request();
+        putRequest.setHttpMethod("PUT");
+        putRequest.setUri("/form");
+
+
+        assertEquals(new GetResponse().getClass(),
+                cobSpecRouter.route(getRequest).getClass());
+        assertEquals(new PutPostResponse().getClass(),
+                cobSpecRouter.route(putRequest).getClass());
     }
 }
