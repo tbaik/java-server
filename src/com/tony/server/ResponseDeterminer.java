@@ -1,6 +1,7 @@
 package com.tony.server;
 
-import com.tony.server.response.GetResponse;
+import com.tony.server.response.FourOhFourResponse;
+import com.tony.server.response.MethodNotAllowedResponse;
 import com.tony.server.response.Response;
 
 import java.util.ArrayList;
@@ -17,7 +18,9 @@ public class ResponseDeterminer {
     public Response determineResponse(Request request) {
         if(router.hasRoute(request)){
             return router.route(request);
+        } else if(uriList.contains(request.getURI())){
+            return new MethodNotAllowedResponse();
         }
-        return new GetResponse();
+        return new FourOhFourResponse();
     }
 }
