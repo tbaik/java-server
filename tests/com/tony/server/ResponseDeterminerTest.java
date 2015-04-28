@@ -1,7 +1,7 @@
 package com.tony.server;
 
+import com.tony.server.response.FileContentResponse;
 import com.tony.server.response.FourOhFourResponse;
-import com.tony.server.response.GetResponse;
 import com.tony.server.response.MethodNotAllowedResponse;
 import org.junit.Test;
 
@@ -16,9 +16,9 @@ public class ResponseDeterminerTest {
         ArrayList<String> uriList = new ArrayList<>();
         ResponseDeterminer responseDeterminer =
                 new ResponseDeterminer(router, uriList);
-        Request getRequest = new Request("GET", "/");
+        Request getRequest = new Request("GET", "/form");
 
-        assertEquals(new GetResponse("/").getClass(),
+        assertEquals(new FileContentResponse("/form").getClass(),
                 responseDeterminer.determineResponse(getRequest).getClass());
     }
 

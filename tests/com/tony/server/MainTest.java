@@ -1,6 +1,6 @@
 package com.tony.server;
 
-import com.tony.server.response.GetResponse;
+import com.tony.server.response.FileContentResponse;
 import com.tony.server.response.PutPostResponse;
 import org.junit.Test;
 
@@ -29,14 +29,14 @@ public class MainTest {
         Router cobSpecRouter = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/");
         Request getRequest = new Request();
         getRequest.setHttpMethod("GET");
-        getRequest.setUri("/");
+        getRequest.setUri("/form");
 
         Request putRequest = new Request();
         putRequest.setHttpMethod("PUT");
         putRequest.setUri("/form");
 
 
-        assertEquals(new GetResponse("/").getClass(),
+        assertEquals(new FileContentResponse("/form").getClass(),
                 cobSpecRouter.route(getRequest).getClass());
         assertEquals(new PutPostResponse("/path").getClass(),
                 cobSpecRouter.route(putRequest).getClass());

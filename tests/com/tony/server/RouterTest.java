@@ -1,6 +1,7 @@
 package com.tony.server;
 
-import com.tony.server.response.GetResponse;
+import com.tony.server.response.FileContentResponse;
+import com.tony.server.response.HeadResponse;
 import com.tony.server.response.PutPostResponse;
 import com.tony.server.response.Response;
 import org.junit.Test;
@@ -12,13 +13,13 @@ import static org.junit.Assert.*;
 public class RouterTest {
     @Test
     public void testRouteGivesBackCorrectResponse() throws Exception {
-        Request getRequest = new Request("GET", "/");
+        Request fileContentRequest = new Request("GET", "/form");
 
         Router router = new Router();
-        Response getResponse = new GetResponse("/");
-        router.addRoute(getRequest, getResponse);
+        Response getResponse = new FileContentResponse("/form");
+        router.addRoute(fileContentRequest, getResponse);
 
-        assertEquals(getResponse, router.route(getRequest));
+        assertEquals(getResponse, router.route(fileContentRequest));
     }
 
     @Test
@@ -36,38 +37,38 @@ public class RouterTest {
 
     @Test
     public void testHasRouteWithSameRequestMethodsAndSameURI() throws Exception {
-        Request getRequest = new Request("GET", "/something");
-        Request getRequest2 = new Request("GET", "/something");
+        Request getFileRequest = new Request("GET", "/something");
+        Request getFileRequest2 = new Request("GET", "/something");
 
         Router router = new Router();
-        router.addRoute(getRequest, new GetResponse("/something"));
+        router.addRoute(getFileRequest, new FileContentResponse("/something"));
 
-        assertTrue(router.hasRoute(getRequest2));
+        assertTrue(router.hasRoute(getFileRequest2));
     }
     @Test
     public void testHasRouteWithSameRequestMethodsAndDifferentURI() throws Exception {
-        Request getRequest = new Request("GET", "/something");
-        Request getRequest2 = new Request("GET", "/somethingElse");
+        Request getFileRequest = new Request("GET", "/something");
+        Request getFileRequest2 = new Request("GET", "/somethingElse");
 
         Router router = new Router();
-        router.addRoute(getRequest, new GetResponse("/something"));
+        router.addRoute(getFileRequest, new FileContentResponse("/something"));
 
-        assertFalse(router.hasRoute(getRequest2));
+        assertFalse(router.hasRoute(getFileRequest2));
     }
     @Test
     public void testAddRoute() throws Exception {
         Router router = new Router();
         Request getRequest = new Request();
         getRequest.setHttpMethod("GET");
-        router.addRoute(getRequest, new GetResponse("/something"));
+        router.addRoute(getRequest, new FileContentResponse("/something"));
 
     }
 
     @Test
     public void testAllowedMethodsForURI() throws Exception {
         Router router = new Router();
-        router.addRoute(new Request("GET", "/method_options"), new GetResponse("/method_options"));
-        router.addRoute(new Request("HEAD", "/method_options"), new GetResponse("/method_options"));
+        router.addRoute(new Request("GET", "/method_options"), new FileContentResponse("/method_options"));
+        router.addRoute(new Request("HEAD", "/method_options"), new HeadResponse());
         router.addRoute(new Request("POST", "/method_options"), new PutPostResponse("/method_options"));
         router.addRoute(new Request("PUT", "/method_options"), new PutPostResponse("/method_options"));
         String uri = "/method_options";

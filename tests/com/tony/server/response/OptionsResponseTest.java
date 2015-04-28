@@ -12,8 +12,8 @@ public class OptionsResponseTest {
     @Test
     public void testResponseBuiltWithCorrectResponse() throws Exception {
         Router router = new Router();
-        router.addRoute(new Request("GET", "/method_options"), new GetResponse("/method_options"));
-        router.addRoute(new Request("HEAD", "/method_options"), new GetResponse("/method_options"));
+        router.addRoute(new Request("GET", "/method_options"), new FileContentResponse("/method_options"));
+        router.addRoute(new Request("HEAD", "/method_options"), new HeadResponse());
         router.addRoute(new Request("POST", "/method_options"), new PutPostResponse("path/method_options"));
         router.addRoute(new Request("PUT", "/method_options"), new PutPostResponse("path/method_options"));
 
@@ -27,8 +27,8 @@ public class OptionsResponseTest {
     @Test
     public void testCreateOptionsHeaderPutsAllowedMethodsInAllow() throws Exception {
         Router router = new Router();
-        router.addRoute(new Request("GET", "/method_options"), new GetResponse("/method_options"));
-        router.addRoute(new Request("HEAD", "/method_options"), new GetResponse("/method_options"));
+        router.addRoute(new Request("GET", "/method_options"), new FileContentResponse("/method_options"));
+        router.addRoute(new Request("HEAD", "/method_options"), new HeadResponse());
         router.addRoute(new Request("POST", "/method_options"), new PutPostResponse("path/method_options"));
         router.addRoute(new Request("PUT", "/method_options"), new PutPostResponse("path/method_options"));
 

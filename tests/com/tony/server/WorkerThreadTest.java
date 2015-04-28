@@ -16,7 +16,7 @@ public class WorkerThreadTest {
         MockWorker worker = new MockWorker(new Socket(),
                 new ResponseDeterminer(router, uriList));
         worker.run();
-        assertEquals("HTTP/1.1 200 OK\n",
+        assertEquals("HTTP/1.1 404 Not Found\n",
                 worker.getOutputStream().toString());
     }
 
