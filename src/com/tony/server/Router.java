@@ -1,5 +1,6 @@
 package com.tony.server;
 
+import com.tony.server.response.PutPostResponse;
 import com.tony.server.response.Response;
 
 import java.util.HashMap;
@@ -13,6 +14,10 @@ public class Router {
 
     public Response route(Request request) {
         if(hasRoute(request)){
+            if(request.getHttpMethod().equals("PUT") ||
+                    request.getHttpMethod().equals("POST")){
+                ((PutPostResponse)routes.get(request)).setRequestBody(request.getBody());
+            }
             return routes.get(request);
         } else{
             return null;

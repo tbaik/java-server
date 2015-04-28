@@ -12,19 +12,19 @@ import static org.junit.Assert.*;
 public class ResponseDeterminerTest {
     @Test
     public void testDetermineResponseReturnsResponseIfInRouter() throws Exception {
-        Router router = Main.createCobSpecRouter();
+        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/");
         ArrayList<String> uriList = new ArrayList<>();
         ResponseDeterminer responseDeterminer =
                 new ResponseDeterminer(router, uriList);
         Request getRequest = new Request("GET", "/");
 
-        assertEquals(new GetResponse().getClass(),
+        assertEquals(new GetResponse("/").getClass(),
                 responseDeterminer.determineResponse(getRequest).getClass());
     }
 
     @Test
     public void testDetermineResponseReturnsMethodNotAllowedIfNotInRouterButInURIList() throws Exception {
-        Router router = Main.createCobSpecRouter();
+        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/");
         ArrayList<String> uriList = new ArrayList<>();
         uriList.add("/file1");
         uriList.add("/text-file.txt");
@@ -41,7 +41,7 @@ public class ResponseDeterminerTest {
 
     @Test
     public void testDetermineResponseReturnsFourOhFourWhenNotFindingRouterNorURI() throws Exception {
-        Router router = Main.createCobSpecRouter();
+        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/");
         ArrayList<String> uriList = new ArrayList<>();
         ResponseDeterminer responseDeterminer =
                 new ResponseDeterminer(router, uriList);

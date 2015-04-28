@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class WorkerThreadTest {
     @Test
     public void testClientSocketSendsMessageBack() throws Exception {
-        Router router = Main.createCobSpecRouter();
+        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/");
         ArrayList uriList = new ArrayList();
         MockWorker worker = new MockWorker(new Socket(),
                 new ResponseDeterminer(router, uriList));

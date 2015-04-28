@@ -2,14 +2,27 @@ package com.tony.server.response;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.io.File;
+
+import static org.junit.Assert.assertEquals;
 
 public class GetResponseTest {
     @Test
-    public void testResponseBuiltWithCorrectResponse() throws Exception {
-        GetResponse getResponse = new GetResponse();
-        String expectedResponse = "HTTP/1.1 200 OK\n";
+    public void testResponseGivenFileHasBodyIfBodyExists() throws Exception {
+        GetResponse getResponse = new GetResponse(System.getProperty("user.dir") + "/public/form");
 
-        assertEquals(expectedResponse, getResponse.respond());
+        String expectedResponse = "HTTP/1.1 200 OK\n";
+        assertEquals(expectedResponse, new String(getResponse.respond()));
+
+        new File(System.getProperty("user.dir") + "/public/form").delete();
     }
+//
+//    @Test
+//    public void testGetContent() throws Exception {
+//        GetResponse getResponse = new GetResponse(System.getProperty("user.dir") + "/public/file1");
+//
+//        String expectedContent = "file1 content";
+//
+//        assertEquals(expectedContent, getResponse.getContent());
+//    }
 }
