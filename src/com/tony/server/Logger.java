@@ -8,6 +8,9 @@ public class Logger {
     }
 
     public void storeLog(String logMessage) {
+        if(logMessage.length() > 5000) {
+            logMessage = logMessage.substring(0, 200);
+        }
         log += logMessage + "\r\n";
         System.out.println(logMessage);
     }
