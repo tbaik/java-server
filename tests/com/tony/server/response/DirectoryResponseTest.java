@@ -38,6 +38,7 @@ public class DirectoryResponseTest {
         String expectedResponse = "<a href=\"/file1\">/file1</a>\n" +
                 "<a href=\"/file2\">/file2</a>\n" +
                 "<a href=\"/image.gif\">/image.gif</a>\n";
+
         assertEquals(expectedResponse,
                 DirectoryResponse.createBodyFromLinks(uriList));
     }
