@@ -1,7 +1,6 @@
 package com.tony.server.response;
 
 import java.util.ArrayList;
-
 public class DirectoryResponse extends Response{
     public DirectoryResponse(ArrayList uriList) {
         setStatus(Status.OK);
