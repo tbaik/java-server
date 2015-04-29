@@ -7,6 +7,7 @@ import com.tony.server.response.PutPostResponse;
 import com.tony.server.response.OptionsResponse;
 import com.tony.server.response.ImageContentResponse;
 import com.tony.server.response.DirectoryResponse;
+import com.tony.server.response.RedirectResponse;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -61,6 +62,7 @@ public class Main {
         router.addRoute(new Request("GET", "/image.jpeg"), new ImageContentResponse(directoryPath + "image.jpeg"));
         router.addRoute(new Request("GET", "/image.png"), new ImageContentResponse(directoryPath + "image.png"));
         router.addRoute(new Request("GET", "/image.gif"), new ImageContentResponse(directoryPath + "image.gif"));
+        router.addRoute(new Request("GET", "/redirect"), new RedirectResponse());
         return router;
     }
 }
