@@ -12,8 +12,8 @@ import static org.junit.Assert.*;
 public class ResponseDeterminerTest {
     @Test
     public void testDetermineResponseReturnsResponseIfInRouter() throws Exception {
-        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/");
         ArrayList<String> uriList = new ArrayList<>();
+        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/", uriList);
         ResponseDeterminer responseDeterminer =
                 new ResponseDeterminer(router, uriList);
         Request getRequest = new Request("GET", "/form");
@@ -24,10 +24,11 @@ public class ResponseDeterminerTest {
 
     @Test
     public void testDetermineResponseReturnsMethodNotAllowedIfNotInRouterButInURIList() throws Exception {
-        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/");
         ArrayList<String> uriList = new ArrayList<>();
-        uriList.add("/file1");
         uriList.add("/text-file.txt");
+        uriList.add("/file1");
+
+        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/", uriList);
         ResponseDeterminer responseDeterminer =
                 new ResponseDeterminer(router, uriList);
         Request putRequest = new Request("PUT", "/file1");
@@ -41,8 +42,8 @@ public class ResponseDeterminerTest {
 
     @Test
     public void testDetermineResponseReturnsFourOhFourWhenNotFindingRouterNorURI() throws Exception {
-        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/");
         ArrayList<String> uriList = new ArrayList<>();
+        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/", uriList);
         ResponseDeterminer responseDeterminer =
                 new ResponseDeterminer(router, uriList);
         Request putRequest = new Request("PUT", "/file1");
