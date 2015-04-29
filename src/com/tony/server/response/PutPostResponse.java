@@ -16,10 +16,10 @@ public class PutPostResponse extends Response {
         setBody("");
     }
 
-    public String respond(){
+    public byte[] respond(){
         putPostContent();
         return ResponseBuilder.buildResponse(getStatusLine(),
-                getHeaders(), getBody());
+                getHeaders(), getBody()).getBytes();
     }
 
     public void putPostContent() {

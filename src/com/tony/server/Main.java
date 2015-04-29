@@ -38,7 +38,7 @@ public class Main {
 
     public static Router createCobSpecRouter(String directoryPath) {
         Router router = new Router();
-//        router.addRoute(new Request("GET", "/"), new Response("/"));
+        router.addRoute(new Request("GET", "/"), new FileContentResponse(directoryPath + "/"));
         router.addRoute(new Request("GET", "/form"), new FileContentResponse(directoryPath + "/form"));
         router.addRoute(new Request("POST", "/form"), new PutPostResponse(directoryPath + "/form"));
         router.addRoute(new Request("PUT", "/form"), new PutPostResponse(directoryPath + "/form"));

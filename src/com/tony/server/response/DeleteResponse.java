@@ -13,9 +13,9 @@ public class DeleteResponse extends Response{
         setBody("");
     }
 
-    public String respond(){
+    public byte[] respond(){
         new File(filePath).delete();
         return ResponseBuilder.buildResponse(getStatusLine(),
-                getHeaders(), getBody());
+                getHeaders(), getBody()).getBytes();
     }
 }

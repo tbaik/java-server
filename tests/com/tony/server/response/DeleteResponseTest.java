@@ -20,7 +20,7 @@ public class DeleteResponseTest {
         writer.close();
 
         assertTrue(new File(System.getProperty("user.dir") + "/public/test_form").isFile());
-        assertEquals(expectedResponse, deleteResponse.respond());
+        assertEquals(expectedResponse, new String(deleteResponse.respond()));
         assertFalse(new File(System.getProperty("user.dir") + "/public/test_form").isFile());
     }
 }

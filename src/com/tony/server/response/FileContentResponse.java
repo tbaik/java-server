@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class FileContentResponse extends Response{
     private final String filePath;
 
-    public String respond(){
+    public byte[] respond(){
         try {
             if(new File(filePath).isFile()){
                 setBody(new String(Files.readAllBytes(new File(filePath).toPath())));
@@ -19,7 +19,7 @@ public class FileContentResponse extends Response{
             e.printStackTrace();
         }
         return ResponseBuilder.buildResponse(getStatusLine(),
-                getHeaders(), getBody());
+                getHeaders(), getBody()).getBytes();
     }
 
     public FileContentResponse(String filePath) {

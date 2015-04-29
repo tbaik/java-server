@@ -21,7 +21,7 @@ public class OptionsResponseTest {
         String expectedResponse = "HTTP/1.1 200 OK\n" +
                 "Allow: GET,POST,HEAD,PUT,OPTIONS\n";
 
-        assertEquals(expectedResponse, optionsResponse.respond());
+        assertEquals(expectedResponse, new String(optionsResponse.respond()));
     }
 
     @Test

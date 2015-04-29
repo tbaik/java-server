@@ -11,6 +11,6 @@ public class FileContentResponseTest {
         String expectedResponse = "HTTP/1.1 200 OK\n\n" +
                 "file1 contents";
 
-        assertEquals(expectedResponse, fileContentResponse.respond());
+        assertEquals(expectedResponse, new String(fileContentResponse.respond()));
     }
 }

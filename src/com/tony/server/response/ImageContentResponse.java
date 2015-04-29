@@ -1,48 +1,35 @@
 package com.tony.server.response;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 public class ImageContentResponse extends Response{
-    public ImageContentResponse(String fileName) {
-        setStatusLine("HTTP/1.1 200 OK\n");
-        HashMap<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", "image/jpeg");
-        setHeaders(headers);
 
+    private final String filePath;
+
+    public byte[] respond(){
         try {
-            BufferedImage image = ImageIO.read(new File(fileName));
-            String body = imageToHex(image);
-            setBody(body);
+            byte[] imageBytes = Files.readAllBytes(Paths.get(filePath));
+            return ResponseBuilder.buildImageResponse(getStatusLine(), getHeaders(), imageBytes);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    public static String imageToHex(BufferedImage image) {
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(image, "jpeg", baos);
-            byte[] imageByteArray = baos.toByteArray();
-            return new String(imageByteArray);
+    public ImageContentResponse(String filePath) {
+        this.filePath = filePath;
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", imageType(filePath));
 
-//            StringBuilder sb = new StringBuilder(imageByteArray.length * 2);
-//            boolean addSpace = false;
-//            for(byte imageByte: imageByteArray) {
-//                sb.append(String.format("%02x", imageByte & 0xff));
-//                if(addSpace){
-//                    sb.append(" ");
-//                }
-//                addSpace = !addSpace;
-//            }
-//            return sb.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "no image";
+        setStatusLine("HTTP/1.1 200 OK\n");
+        setHeaders(headers);
+    }
+
+    public static String imageType(String filePath) {
+        String[] splitString = filePath.split("\\.");
+        return "image/" + splitString[splitString.length-1];
     }
 }

@@ -16,7 +16,7 @@ public class ResponseTest {
                 "Content-Type: Content-Type: text/xml; charset=utf-8\n" +
                 "\n" +
                 "body";
-        assertEquals(expectedResponse, mockResponse.respond());
+        assertEquals(expectedResponse, new String(mockResponse.respond()));
     }
 
     private class MockResponse extends Response{

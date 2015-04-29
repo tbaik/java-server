@@ -10,6 +10,6 @@ public class FourOhFourResponseTest {
         FourOhFourResponse fourOhFourResponse = new FourOhFourResponse();
         String expectedResponse = "HTTP/1.1 404 Not Found\n";
 
-        assertEquals(expectedResponse, fourOhFourResponse.respond());
+        assertEquals(expectedResponse, new String(fourOhFourResponse.respond()));
     }
 }

@@ -10,6 +10,6 @@ public class HeadResponseTest {
         HeadResponse headResponse = new HeadResponse();
         String expectedResponse = "HTTP/1.1 200 OK\n";
 
-        assertEquals(expectedResponse, headResponse.respond());
+        assertEquals(expectedResponse, new String(headResponse.respond()));
     }
 }
