@@ -8,6 +8,7 @@ import com.tony.server.response.OptionsResponse;
 import com.tony.server.response.ImageContentResponse;
 import com.tony.server.response.DirectoryResponse;
 import com.tony.server.response.RedirectResponse;
+import com.tony.server.response.LogResponse;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,12 +18,17 @@ public class Main {
         ArgumentParser argumentParser = new ArgumentParser();
         argumentParser.parseArguments(args);
 
-        ArrayList<String> uriList = createURIList(argumentParser.getDirectory());
-        Router router = createCobSpecRouter(argumentParser.getDirectory(), uriList);
-        ResponseDeterminer responseDeterminer =
-                new ResponseDeterminer(router, uriList);
+        Authenticator authenticator = new Authenticator();
+        authenticator.addToAuthenticatedUsers("admin:hunter2");
+        authenticator.addToAuthenticationList(new Request("GET", "/logs"));
 
-        Server server = new Server(argumentParser.getPort(), responseDeterminer);
+        Logger logger = new Logger();
+        ArrayList<String> uriList = createURIList(argumentParser.getDirectory());
+        Router router = createCobSpecRouter(argumentParser.getDirectory(), uriList, logger);
+        ResponseDeterminer responseDeterminer =
+                new ResponseDeterminer(router, uriList, authenticator);
+
+        Server server = new Server(argumentParser.getPort(), responseDeterminer, logger);
         new Thread(server).start();
     }
 
@@ -43,7 +49,7 @@ public class Main {
         return uriList;
     }
 
-    public static Router createCobSpecRouter(String directoryPath, ArrayList uriList) {
+    public static Router createCobSpecRouter(String directoryPath, ArrayList uriList, Logger logger) {
         Router router = new Router();
         router.addRoute(new Request("GET", "/"), new DirectoryResponse(uriList));
         router.addRoute(new Request("GET", "/form"), new FileContentResponse(directoryPath + "/form"));
@@ -60,6 +66,7 @@ public class Main {
         router.addRoute(new Request("GET", "/image.png"), new ImageContentResponse(directoryPath + "image.png"));
         router.addRoute(new Request("GET", "/image.gif"), new ImageContentResponse(directoryPath + "image.gif"));
         router.addRoute(new Request("GET", "/redirect"), new RedirectResponse("http://localhost:5000/"));
+        router.addRoute(new Request("GET", "/logs"), new LogResponse(logger));
         return router;
     }
 }

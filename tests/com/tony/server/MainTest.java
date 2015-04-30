@@ -25,7 +25,7 @@ public class MainTest {
     @Test
     public void testCreateCobSpecRouterAddsResponsesToRouter() throws Exception {
         ArrayList<String> uriList = new ArrayList();
-        Router cobSpecRouter = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/", uriList);
+        Router cobSpecRouter = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/", uriList, new Logger());
 
         Request getRequest = new Request();
         getRequest.setHttpMethod("GET");
