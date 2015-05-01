@@ -62,8 +62,8 @@ public class ResponseDeterminerTest {
         Request request = new Request("GET", "/file_needs_authorization");
         router.addRoute(request, new FourOhFourResponse());
 
-        authenticator.addToAuthenticatedUsers("user:notAuthorized");
-        authenticator.addToAuthenticationList(request);
+        authenticator.addToAuthorizedUsers("user:notAuthorized");
+        authenticator.addToAuthorizationList(request);
 
         assertEquals(new UnauthorizedResponse().getClass(),
                 responseDeterminer.determineResponse(request).getClass());

@@ -21,8 +21,8 @@ public class AuthenticatorTest {
         System.setOut(new PrintStream(outContent));
         authenticator = new Authenticator(new Logger());
         getRequest = new Request("GET", "/blah");
-        authenticator.addToAuthenticationList(getRequest);
-        authenticator.addToAuthenticatedUsers("admin:hunter2");
+        authenticator.addToAuthorizationList(getRequest);
+        authenticator.addToAuthorizedUsers("admin:hunter2");
     }
 
     @After
@@ -32,36 +32,43 @@ public class AuthenticatorTest {
 
     @Test
     public void testAddToAuthenticationList() throws Exception {
-        assertTrue(authenticator.getAuthenticationList().contains(getRequest));
+        assertTrue(authenticator.getAuthorizationList().contains(getRequest));
     }
 
     @Test
     public void testAddToAuthenticatedUsers() throws Exception {
-        assertTrue(authenticator.getAuthenticatedUsers().contains("admin:hunter2"));
+        assertTrue(authenticator.getAuthorizedUsers().contains("admin:hunter2"));
+    }
+
+    @Test
+    public void testAddToEtags() throws Exception {
+        authenticator.addToEtags("someEtag");
+
+        assertTrue(authenticator.matchesEtag("someEtag"));
     }
 
     @Test
     public void testRequiresAuthenticationReturnsTrueIfIncludedInList() throws Exception {
-        assertTrue(authenticator.requiresAuthentication(getRequest));
+        assertTrue(authenticator.requiresAuthorization(getRequest));
     }
 
     @Test
     public void testRequiresAuthenticationReturnsFalseIfNotInList() throws Exception {
-        assertFalse(authenticator.requiresAuthentication(new Request("GET", "/somethingElse")));
+        assertFalse(authenticator.requiresAuthorization(new Request("GET", "/somethingElse")));
     }
 
     @Test
     public void testIsAuthenticatedReturnsTrueIfMatchesUserInfo() throws Exception {
         Request authenticatedRequest = new Request("GET", "/blah");
         authenticatedRequest.addToHeaders("Authorization", "Basic YWRtaW46aHVudGVyMg==");
-        assertTrue(authenticator.isAuthenticated(authenticatedRequest));
+        assertTrue(authenticator.isAuthorized(authenticatedRequest));
     }
 
     @Test
     public void testIsAuthenticatedReturnsFalseIfErrorOnDecode() throws Exception {
         Request authenticatedRequest = new Request("GET", "/blah");
         authenticatedRequest.addToHeaders("Authorization", "Basic WrongEncodingLength=123");
-        assertFalse(authenticator.isAuthenticated(authenticatedRequest));
+        assertFalse(authenticator.isAuthorized(authenticatedRequest));
     }
 
     @Test

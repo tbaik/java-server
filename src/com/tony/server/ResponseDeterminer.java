@@ -21,8 +21,8 @@ public class ResponseDeterminer {
 
     public Response determineResponse(Request request) {
         if(router.hasRoute(request)){
-            if(authenticator.requiresAuthentication(request)
-                    && !authenticator.isAuthenticated(request)){
+            if(authenticator.requiresAuthorization(request)
+                    && !authenticator.isAuthorized(request)){
                 return new UnauthorizedResponse();
             } else {
                 return router.route(request);

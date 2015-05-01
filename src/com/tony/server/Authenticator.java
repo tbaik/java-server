@@ -7,41 +7,47 @@ import java.util.HashMap;
 public class Authenticator {
     private static final int ENCODED_USER_INFO = 1;
     private final Logger logger;
-    private ArrayList<Request> authenticationList;
-    private ArrayList<String> authenticatedUsers;
+    private ArrayList<Request> authorizationList;
+    private ArrayList<String> authorizedUsers;
+    private ArrayList<String> etags;
 
     public Authenticator(Logger logger) {
         this.logger = logger;
-        this.authenticationList = new ArrayList<>();
-        this.authenticatedUsers = new ArrayList<>();
+        this.authorizationList = new ArrayList<>();
+        this.authorizedUsers = new ArrayList<>();
+        this.etags = new ArrayList<>();
     }
 
-    public void addToAuthenticationList(Request request) {
-       authenticationList.add(request);
+    public void addToAuthorizationList(Request request) {
+       authorizationList.add(request);
     }
 
-    public void addToAuthenticatedUsers(String userInfo) {
-        authenticatedUsers.add(userInfo);
+    public void addToAuthorizedUsers(String userInfo) {
+        authorizedUsers.add(userInfo);
     }
 
-    public ArrayList<Request> getAuthenticationList() {
-        return authenticationList;
+    public void addToEtags(String etag) {
+        etags.add(etag);
     }
 
-    public ArrayList<String> getAuthenticatedUsers() {
-        return authenticatedUsers;
+    public ArrayList<Request> getAuthorizationList() {
+        return authorizationList;
     }
 
-    public boolean requiresAuthentication(Request request) {
-        return authenticationList.contains(request);
+    public ArrayList<String> getAuthorizedUsers() {
+        return authorizedUsers;
     }
 
-    public boolean isAuthenticated(Request request) {
+    public boolean requiresAuthorization(Request request) {
+        return authorizationList.contains(request);
+    }
+
+    public boolean isAuthorized(Request request) {
         HashMap<String, String> headers = request.getHeaders();
         if(headers.containsKey("Authorization")){
             String authorizationValue = headers.get("Authorization");
             String encodedUserInfo = authorizationValue.split(" ")[ENCODED_USER_INFO];
-            return authenticatedUsers.contains(decodeUserInfo(encodedUserInfo));
+            return authorizedUsers.contains(decodeUserInfo(encodedUserInfo));
         }
         return false;
     }
@@ -55,5 +61,9 @@ public class Authenticator {
             return "Error in decoding.";
         }
         return decodedUserInfo;
+    }
+
+    public boolean matchesEtag(String etag) {
+        return etags.contains(etag);
     }
 }
