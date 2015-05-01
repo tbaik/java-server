@@ -15,7 +15,8 @@ public class Router {
     public Response route(Request request) {
         if(hasRoute(request)){
             if(request.getHttpMethod().equals("PUT") ||
-                    request.getHttpMethod().equals("POST")){
+                    request.getHttpMethod().equals("POST") ||
+                    request.getHttpMethod().equals("PATCH")){
                 ((PutPostResponse)routes.get(request)).setRequestBody(request.getBody());
             }
             return routes.get(request);

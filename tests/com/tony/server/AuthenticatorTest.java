@@ -5,11 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class AuthenticatorTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -40,14 +40,7 @@ public class AuthenticatorTest {
         assertTrue(authenticator.getAuthorizedUsers().contains("admin:hunter2"));
     }
 
-    @Test
-    public void testAddToEtags() throws Exception {
-        authenticator.addToEtags("someEtag");
-
-        assertTrue(authenticator.matchesEtag("someEtag"));
-    }
-
-    @Test
+   @Test
     public void testRequiresAuthenticationReturnsTrueIfIncludedInList() throws Exception {
         assertTrue(authenticator.requiresAuthorization(getRequest));
     }
@@ -88,5 +81,24 @@ public class AuthenticatorTest {
         String expectedErrorLog = "java.lang.IllegalArgumentException: Input byte array has wrong 4-byte ending unit\n";
 
         assertEquals(expectedErrorLog, outContent.toString());
+    }
+    public void testMatchesEtag() throws Exception {
+        PrintWriter writer = new PrintWriter(System.getProperty("user.dir") + "/public/testEtag", "UTF-8");
+        writer.print("normal text");
+        writer.close();
+
+        String normalTextAsEtag = "1e63fd95c77abc6e56efcc92065f3de9cbcc0941";
+
+        assertTrue(authenticator.matchesEtag(normalTextAsEtag,
+                System.getProperty("user.dir") + "/public/testEtag"));
+
+        new File(System.getProperty("user.dir") + "/public/testEtag").delete();
+    }
+
+    @Test
+    public void testEncodeWithSHA1ReturnsCorrectSHA1Encoding() throws Exception {
+        byte[] text = "text".getBytes();
+        String textAsSHA1 = "372ea08cab33e71c02c651dbc83a474d32c676ea";
+        assertEquals(textAsSHA1, authenticator.encodeWithSHA1(text));
     }
 }

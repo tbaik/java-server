@@ -3,10 +3,15 @@ package com.tony.server;
 import com.tony.server.response.FileContentResponse;
 import com.tony.server.response.FourOhFourResponse;
 import com.tony.server.response.MethodNotAllowedResponse;
+import com.tony.server.response.ParameterDecodeResponse;
+import com.tony.server.response.PatchResponse;
+import com.tony.server.response.PreconditionFailedResponse;
 import com.tony.server.response.UnauthorizedResponse;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
@@ -67,5 +72,40 @@ public class ResponseDeterminerTest {
 
         assertEquals(new UnauthorizedResponse().getClass(),
                 responseDeterminer.determineResponse(request).getClass());
+    }
+
+    @Test
+    public void testParameterDecodeResponseOnParameterURI() throws Exception {
+        Request request = new Request("GET", "/parameters?blah");
+
+        assertEquals(ParameterDecodeResponse.class, responseDeterminer.determineResponse(request).getClass());
+    }
+
+    @Test
+    public void testPatchReturnsPatchResponseOnMatchingEtag() throws Exception {
+        String normalTextAsEtag = "1e63fd95c77abc6e56efcc92065f3de9cbcc0941";
+        String filePath = System.getProperty("user.dir") + "/public/something";
+
+        Request request = new Request("PATCH", "/something");
+        request.addToHeaders("If-Match", normalTextAsEtag);
+
+        router.addRoute(new Request("PATCH", "/something"), new PatchResponse(filePath));
+
+        PrintWriter writer = new PrintWriter(filePath, "UTF-8");
+        writer.print("normal text");
+        writer.close();
+
+        assertEquals(PatchResponse.class, responseDeterminer.determineResponse(request).getClass());
+        new File(filePath).delete();
+    }
+
+    @Test
+    public void testPatchReturnsPreconditionFailedResponseOnWrongEtag() throws Exception {
+        Request request = new Request("PATCH", "/something");
+        request.addToHeaders("If-Match", "etag");
+
+        router.addRoute(new Request("PATCH", "/something"), new PatchResponse(""));
+
+        assertEquals(PreconditionFailedResponse.class, responseDeterminer.determineResponse(request).getClass());
     }
 }

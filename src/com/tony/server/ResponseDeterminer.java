@@ -3,6 +3,8 @@ package com.tony.server;
 import com.tony.server.response.FourOhFourResponse;
 import com.tony.server.response.MethodNotAllowedResponse;
 import com.tony.server.response.ParameterDecodeResponse;
+import com.tony.server.response.PatchResponse;
+import com.tony.server.response.PreconditionFailedResponse;
 import com.tony.server.response.Response;
 import com.tony.server.response.UnauthorizedResponse;
 
@@ -24,6 +26,13 @@ public class ResponseDeterminer {
             if(authenticator.requiresAuthorization(request)
                     && !authenticator.isAuthorized(request)){
                 return new UnauthorizedResponse();
+            } else if(request.getHttpMethod().equals("PATCH")){
+                String filePath = ((PatchResponse)router.route(request)).getFilePath();
+                if(!authenticator.matchesEtag(request.getHeaders().get("If-Match"), filePath)) {
+                    return new PreconditionFailedResponse();
+                } else {
+                    return router.route(request);
+                }
             } else {
                 return router.route(request);
             }

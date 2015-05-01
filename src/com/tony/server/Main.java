@@ -7,6 +7,7 @@ import com.tony.server.response.HeadResponse;
 import com.tony.server.response.ImageContentResponse;
 import com.tony.server.response.LogResponse;
 import com.tony.server.response.OptionsResponse;
+import com.tony.server.response.PatchResponse;
 import com.tony.server.response.PutPostResponse;
 import com.tony.server.response.RedirectResponse;
 
@@ -67,6 +68,8 @@ public class Main {
         router.addRoute(new Request("GET", "/image.gif"), new ImageContentResponse(directoryPath + "image.gif"));
         router.addRoute(new Request("GET", "/redirect"), new RedirectResponse("http://localhost:5000/"));
         router.addRoute(new Request("GET", "/logs"), new LogResponse(logger));
+        router.addRoute(new Request("GET", "/patch-content.txt"), new FileContentResponse(directoryPath + "/patch-content.txt"));
+        router.addRoute(new Request("PATCH", "/patch-content.txt"), new PatchResponse(directoryPath + "/patch-content.txt"));
         return router;
     }
 }
