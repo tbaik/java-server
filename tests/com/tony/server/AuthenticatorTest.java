@@ -38,7 +38,7 @@ public class AuthenticatorTest {
         assertTrue(authenticator.getAuthenticatedUsers().contains("admin:hunter2"));
     }
 
-   @Test
+    @Test
     public void testRequiresAuthenticationReturnsTrueIfIncludedInList() throws Exception {
         assertTrue(authenticator.requiresAuthentication(getRequest));
     }
