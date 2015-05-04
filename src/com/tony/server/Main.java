@@ -59,7 +59,7 @@ public class Main {
         router.addRoute(new Request("GET", "/image.jpeg"), new ImageContentResponse(directoryPath + "image.jpeg"));
         router.addRoute(new Request("GET", "/image.png"), new ImageContentResponse(directoryPath + "image.png"));
         router.addRoute(new Request("GET", "/image.gif"), new ImageContentResponse(directoryPath + "image.gif"));
-        router.addRoute(new Request("GET", "/redirect"), new RedirectResponse());
+        router.addRoute(new Request("GET", "/redirect"), new RedirectResponse("http://localhost:5000/"));
         return router;
     }
 }

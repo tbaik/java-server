@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 public class RedirectResponseTest {
     @Test
     public void testResponseReturnsStatus302() throws Exception {
-        RedirectResponse redirectResponse = new RedirectResponse();
+        RedirectResponse redirectResponse = new RedirectResponse("http://testing/");
         String response = new String(redirectResponse.respond());
         String responseLines[] = response.split("\n");
 
@@ -16,7 +16,7 @@ public class RedirectResponseTest {
 
     @Test
     public void testLocationContent() throws Exception {
-        RedirectResponse redirectResponse = new RedirectResponse();
+        RedirectResponse redirectResponse = new RedirectResponse("http://localhost:5000/");
         String response = new String(redirectResponse.respond());
         String responseLines[] = response.split("\n");
         int headerLine = 1;
