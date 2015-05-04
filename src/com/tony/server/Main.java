@@ -1,6 +1,11 @@
 package com.tony.server;
 
-import com.tony.server.response.*;
+import com.tony.server.response.DeleteResponse;
+import com.tony.server.response.FileContentResponse;
+import com.tony.server.response.HeadResponse;
+import com.tony.server.response.PutPostResponse;
+import com.tony.server.response.OptionsResponse;
+import com.tony.server.response.ImageContentResponse;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,7 +52,7 @@ public class Main {
         router.addRoute(new Request("HEAD", "/method_options"), new HeadResponse());
         router.addRoute(new Request("POST", "/method_options"), new PutPostResponse(directoryPath + "/method_options"));
         router.addRoute(new Request("PUT", "/method_options"), new PutPostResponse(directoryPath + "/method_options"));
-        router.addRoute(new Request("OPTIONS", "/method_options"), new OptionsResponse(router, "/method_options"));
+        router.addRoute(new Request("OPTIONS", "/method_options"), new OptionsResponse(router.allowedMethodsForURI("/method_options"), "/method_options"));
         router.addRoute(new Request("GET", "/file1"), new FileContentResponse(directoryPath + "file1"));
         router.addRoute(new Request("GET", "/image.jpeg"), new ImageContentResponse(directoryPath + "image.jpeg"));
         router.addRoute(new Request("GET", "/image.png"), new ImageContentResponse(directoryPath + "image.png"));
@@ -55,3 +60,4 @@ public class Main {
         return router;
     }
 }
+

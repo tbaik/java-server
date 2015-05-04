@@ -23,4 +23,5 @@ public class DeleteResponseTest {
         assertEquals(expectedResponse, new String(deleteResponse.respond()));
         assertFalse(new File(System.getProperty("user.dir") + "/public/test_form").isFile());
     }
+
 }

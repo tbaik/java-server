@@ -14,9 +14,8 @@ public class ImageContentResponse extends Response{
             byte[] imageBytes = Files.readAllBytes(Paths.get(filePath));
             return ResponseBuilder.buildImageResponse(getStatusLine(), getHeaders(), imageBytes);
         } catch (IOException e) {
-            e.printStackTrace();
+            return new InternalErrorResponse(e.toString()).respond();
         }
-        return null;
     }
 
     public ImageContentResponse(String filePath) {

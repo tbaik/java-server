@@ -10,13 +10,14 @@ public class FileContentResponse extends Response{
 
     public byte[] respond(){
         try {
-            if(new File(filePath).isFile()){
-                setBody(new String(Files.readAllBytes(new File(filePath).toPath())));
+            File file = new File(filePath);
+            if(file.isFile()){
+                setBody(new String(Files.readAllBytes(file.toPath())));
             } else {
-                setBody("");
+                return new InternalErrorResponse("No Such File!").respond();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            return new InternalErrorResponse(e.toString()).respond();
         }
         return ResponseBuilder.buildResponse(getStatusLine(),
                 getHeaders(), getBody()).getBytes();

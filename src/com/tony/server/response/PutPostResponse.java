@@ -23,10 +23,8 @@ public class PutPostResponse extends Response {
     }
 
     public void putPostContent() {
-        try {
-            PrintWriter writer = new PrintWriter(filePath, "UTF-8");
+        try(PrintWriter writer = new PrintWriter(filePath, "UTF-8")) {
             writer.print(requestBody);
-            writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
