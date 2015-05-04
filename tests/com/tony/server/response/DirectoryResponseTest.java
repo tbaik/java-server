@@ -24,6 +24,7 @@ public class DirectoryResponseTest {
                 "<a href=\"/file2\">/file2</a>\n" +
                 "<a href=\"/image.gif\">/image.gif</a>\n" +
                 "<a href=\"/patch-content.txt\">/patch-content.txt</a>\n";
+
         assertEquals(expectedResponse,
                 new String(directoryResponse.respond()));
     }
