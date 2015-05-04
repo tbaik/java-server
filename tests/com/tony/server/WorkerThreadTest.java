@@ -16,9 +16,7 @@ public class WorkerThreadTest {
         MockWorker worker = new MockWorker(new Socket(),
                 new ResponseDeterminer(router, uriList));
         worker.run();
-        assertEquals("HTTP/1.1 500 Internal Server Error\n" +
-                        "\n" +
-                        "No Such File!",
+        assertEquals("HTTP/1.1 200 OK\n",
                 worker.getOutputStream().toString());
     }
 
