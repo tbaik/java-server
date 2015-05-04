@@ -11,12 +11,14 @@ import static org.junit.Assert.*;
 public class WorkerThreadTest {
     @Test
     public void testClientSocketSendsMessageBack() throws Exception {
-        Router router = Main.createCobSpecRouter();
+        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/");
         ArrayList uriList = new ArrayList();
         MockWorker worker = new MockWorker(new Socket(),
                 new ResponseDeterminer(router, uriList));
         worker.run();
-        assertEquals("HTTP/1.1 200 OK\n",
+        assertEquals("HTTP/1.1 500 Internal Server Error\n" +
+                        "\n" +
+                        "No Such File!",
                 worker.getOutputStream().toString());
     }
 

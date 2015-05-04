@@ -1,5 +1,7 @@
 package com.tony.server.response;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,5 +30,18 @@ public class ResponseBuilder {
         } else{
             return "\n" + body;
         }
+    }
+
+    public static byte[] buildImageResponse(String statusLine, HashMap<String, String> headers, byte[] imageBytes) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            baos.write(statusLine.getBytes());
+            baos.write(buildHeaderString(headers).getBytes());
+            baos.write("\n".getBytes());
+            baos.write(imageBytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return baos.toByteArray();
     }
 }

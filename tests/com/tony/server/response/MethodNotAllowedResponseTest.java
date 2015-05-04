@@ -10,6 +10,6 @@ public class MethodNotAllowedResponseTest {
         MethodNotAllowedResponse methodNotAllowedResponse = new MethodNotAllowedResponse();
         String expectedResponse = "HTTP/1.1 405 Method Not Allowed\n";
 
-        assertEquals(expectedResponse, methodNotAllowedResponse.respond());
+        assertEquals(expectedResponse, new String(methodNotAllowedResponse.respond()));
     }
 }

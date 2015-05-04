@@ -20,7 +20,7 @@ public class WorkerThread implements Runnable {
         try {
             Request request = RequestParser.parseRequest(getInputStream());
             Response response = responseDeterminer.determineResponse(request);
-            getOutputStream().write(response.respond().getBytes());
+            getOutputStream().write(response.respond());
             getOutputStream().close();
             clientSocket.close();
         } catch (IOException e) {

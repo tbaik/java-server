@@ -30,6 +30,20 @@ public class ResponseBuilderTest {
     }
 
     @Test
+    public void testBuildImageResponse() throws Exception {
+        String correctResponse = "HTTP/1.1 200 OK\n" +
+                "Content-Type: image/jpeg\n\n" +
+                "Appended imageBytes";
+        String statusLine = "HTTP/1.1 200 OK\n";
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "image/jpeg");
+
+        byte[] imageBytes = "Appended imageBytes".getBytes();
+
+        assertEquals(correctResponse, new String(ResponseBuilder.buildImageResponse(statusLine, headers, imageBytes)));
+    }
+
+    @Test
     public void testBuildHeaderString() throws Exception {
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Content-Length", "length");

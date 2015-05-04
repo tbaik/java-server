@@ -4,12 +4,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class GetResponseTest {
+public class HeadResponseTest {
     @Test
     public void testResponseBuiltWithCorrectResponse() throws Exception {
-        GetResponse getResponse = new GetResponse();
+        HeadResponse headResponse = new HeadResponse();
         String expectedResponse = "HTTP/1.1 200 OK\n";
 
-        assertEquals(expectedResponse, getResponse.respond());
+        assertEquals(expectedResponse, new String(headResponse.respond()));
     }
 }

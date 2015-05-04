@@ -1,7 +1,7 @@
 package com.tony.server;
 
+import com.tony.server.response.FileContentResponse;
 import com.tony.server.response.FourOhFourResponse;
-import com.tony.server.response.GetResponse;
 import com.tony.server.response.MethodNotAllowedResponse;
 import org.junit.Test;
 
@@ -12,19 +12,19 @@ import static org.junit.Assert.*;
 public class ResponseDeterminerTest {
     @Test
     public void testDetermineResponseReturnsResponseIfInRouter() throws Exception {
-        Router router = Main.createCobSpecRouter();
+        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/");
         ArrayList<String> uriList = new ArrayList<>();
         ResponseDeterminer responseDeterminer =
                 new ResponseDeterminer(router, uriList);
-        Request getRequest = new Request("GET", "/");
+        Request getRequest = new Request("GET", "/form");
 
-        assertEquals(new GetResponse().getClass(),
+        assertEquals(new FileContentResponse("/form").getClass(),
                 responseDeterminer.determineResponse(getRequest).getClass());
     }
 
     @Test
     public void testDetermineResponseReturnsMethodNotAllowedIfNotInRouterButInURIList() throws Exception {
-        Router router = Main.createCobSpecRouter();
+        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/");
         ArrayList<String> uriList = new ArrayList<>();
         uriList.add("/file1");
         uriList.add("/text-file.txt");
@@ -41,7 +41,7 @@ public class ResponseDeterminerTest {
 
     @Test
     public void testDetermineResponseReturnsFourOhFourWhenNotFindingRouterNorURI() throws Exception {
-        Router router = Main.createCobSpecRouter();
+        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/");
         ArrayList<String> uriList = new ArrayList<>();
         ResponseDeterminer responseDeterminer =
                 new ResponseDeterminer(router, uriList);

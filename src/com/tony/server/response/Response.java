@@ -7,9 +7,9 @@ public abstract class Response {
    private HashMap<String, String> headers;
    private String body;
 
-   public String respond(){
+   public byte[] respond(){
       return ResponseBuilder.buildResponse(getStatusLine(),
-              getHeaders(), getBody());
+              getHeaders(), getBody()).getBytes();
    }
 
    public String getStatusLine(){
