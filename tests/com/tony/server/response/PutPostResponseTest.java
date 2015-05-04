@@ -10,23 +10,30 @@ import static org.junit.Assert.assertTrue;
 public class PutPostResponseTest {
     @Test
     public void testResponseBuiltWithCorrectResponseAndFileIsCreated() throws Exception {
-        new File(System.getProperty("user.dir") + "/public/form").delete();
-        PutPostResponse putPostResponse = new PutPostResponse(System.getProperty("user.dir") + "/public/form");
+        String testFilePath = System.getProperty("user.dir") + "/testForm";
+        File testFile = new File(testFilePath);
+        testFile.delete();
+
+        PutPostResponse putPostResponse = new PutPostResponse(testFilePath);
         String expectedResponse = "HTTP/1.1 200 OK\n";
 
         assertEquals(expectedResponse, new String(putPostResponse.respond()));
-        assertTrue(new File(System.getProperty("user.dir") + "/public/form").isFile());
+        assertTrue(testFile.isFile());
 
-        new File(System.getProperty("user.dir") + "/public/form").delete();
+        testFile.delete();
     }
 
     @Test
     public void testPutPostContentDumpsBodyIntoFile() throws Exception {
-        new File(System.getProperty("user.dir") + "/public/form").delete();
-        PutPostResponse putPostResponse = new PutPostResponse(System.getProperty("user.dir") + "/public/form");
-        putPostResponse.putPostContent();
-        assertTrue(new File(System.getProperty("user.dir") + "/public/form").isFile());
+        String testFilePath = System.getProperty("user.dir") + "/testForm";
+        File testFile = new File(testFilePath);
+        testFile.delete();
 
-        new File(System.getProperty("user.dir") + "/public/form").delete();
+        PutPostResponse putPostResponse = new PutPostResponse(testFilePath);
+        putPostResponse.putPostContent();
+
+        assertTrue(testFile.isFile());
+
+        testFile.delete();
     }
 }
