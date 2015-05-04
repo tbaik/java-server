@@ -22,6 +22,5 @@ public class RedirectResponseTest {
         int headerLine = 1;
 
         assertEquals("Location: http://localhost:5000/", responseLines[headerLine]);
-
     }
 }

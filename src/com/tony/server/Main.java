@@ -40,9 +40,6 @@ public class Main {
                 uriList.add("/" + listOfFiles[i].getName());
             }
         }
-        uriList.remove("/.DS_Store");
-        uriList.remove("/form");
-        uriList.remove("/method_options");
         return uriList;
     }
 

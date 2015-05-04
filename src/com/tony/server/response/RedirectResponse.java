@@ -9,6 +9,4 @@ public class RedirectResponse extends Response{
         headers.put("Location", "http://localhost:5000/");
         setHeaders(headers);
     }
-
-
 }
