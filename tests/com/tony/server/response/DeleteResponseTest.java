@@ -12,16 +12,18 @@ import static org.junit.Assert.assertTrue;
 public class DeleteResponseTest {
     @Test
     public void testDeletesResponseOnRespond() throws Exception {
-        DeleteResponse deleteResponse = new DeleteResponse(System.getProperty("user.dir") + "/public/test_form");
+        String testFilePath = System.getProperty("user.dir") + "/test_form";
+        File testFile = new File(testFilePath);
+        DeleteResponse deleteResponse = new DeleteResponse(testFilePath);
         String expectedResponse = "HTTP/1.1 200 OK\n";
 
-        PrintWriter writer = new PrintWriter(System.getProperty("user.dir") + "/public/test_form", "UTF-8");
+        PrintWriter writer = new PrintWriter(testFilePath, "UTF-8");
         writer.println("The first line");
         writer.close();
 
-        assertTrue(new File(System.getProperty("user.dir") + "/public/test_form").isFile());
+        assertTrue(testFile.isFile());
         assertEquals(expectedResponse, new String(deleteResponse.respond()));
-        assertFalse(new File(System.getProperty("user.dir") + "/public/test_form").isFile());
+        assertFalse(testFile.isFile());
     }
 
 }
