@@ -5,6 +5,7 @@ import com.tony.server.response.PutPostResponse;
 import org.junit.Test;
 
 import java.io.File;
+import java.net.Socket;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
@@ -40,5 +41,33 @@ public class MainTest {
                 cobSpecRouter.route(getRequest).getClass());
         assertEquals(new PutPostResponse("/path").getClass(),
                 cobSpecRouter.route(putRequest).getClass());
+    }
+
+    @Test
+    public void testStartingServerWithServerCreatedFromArgsHasPortFromArgs() throws Exception {
+        String[] args = {"-p", "6005"};
+        Server server = Main.createServer(args);
+        Main.startServer(server);
+
+        Socket clientMockSocket = new Socket("localhost", 6005);
+        clientMockSocket.getOutputStream().write("GET / HTTP/1.1\n".getBytes());
+        assertEquals(6005, server.getServerSocket().getLocalPort());
+    }
+
+    @Test
+    public void testStartServerMakesNewServerRun() throws Exception {
+        int port = 6000;
+        Router router = new Router();
+        ArrayList<String> uriList = new ArrayList<>();
+        Logger logger = new Logger();
+        Authenticator authenticator = new Authenticator(logger);
+        ResponseDeterminer responseDeterminer = new ResponseDeterminer(router, uriList, authenticator);
+        Server server = new Server(port, responseDeterminer, logger);
+
+        Main.startServer(server);
+
+        Socket clientMockSocket = new Socket("localhost", 6000);
+        clientMockSocket.getOutputStream().write("GET / HTTP/1.1\n".getBytes());
+        assertTrue(server.isRunning());
     }
 }

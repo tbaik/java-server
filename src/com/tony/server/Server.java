@@ -11,8 +11,8 @@ public class Server implements Runnable{
     private final ResponseDeterminer responseDeterminer;
     private final Logger logger;
     private ServerSocket serverSocket;
-    private boolean isRunning = true;
-    private ExecutorService threadPool = Executors.newFixedThreadPool(50);
+    private boolean isRunning = false;
+    private ExecutorService threadPool = Executors.newFixedThreadPool(100);
 
     public Server(int port, ResponseDeterminer responseDeterminer, Logger logger) {
         this.port = port;
@@ -36,28 +36,22 @@ public class Server implements Runnable{
                         "Error accepting client connection", e);
             }
         }
-        stopServer();
     }
 
-    private void openSocket() {
+    public void openSocket() {
         try {
             this.serverSocket = new ServerSocket(port);
+            this.isRunning = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void stopServer() {
-        isRunning = false;
-        try {
-            threadPool.shutdown();
-            serverSocket.close();
-        } catch (IOException e) {
-            throw new RuntimeException("Error closing server", e);
-        }
-    }
-
     public ServerSocket getServerSocket() {
         return serverSocket;
+    }
+
+    public boolean isRunning() {
+        return isRunning;
     }
 }

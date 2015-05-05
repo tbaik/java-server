@@ -12,9 +12,6 @@ public final class RequestParser {
     private static int KEY = 0;
     private static int VALUE = 1;
 
-    private RequestParser() {
-    }
-
     public static Request parseRequest(InputStream inputStream) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         Request request = new Request();
