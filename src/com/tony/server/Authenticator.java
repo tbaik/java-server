@@ -45,6 +45,12 @@ public class Authenticator {
     }
 
     public static String decodeUserInfo(String encodedUserInfo) {
-        return new String(Base64.getDecoder().decode(encodedUserInfo));
+        String decodedUserInfo = "";
+        try{
+           decodedUserInfo = new String(Base64.getDecoder().decode(encodedUserInfo));
+        } catch(Exception e){
+           return "Error in decoding.";
+        }
+        return decodedUserInfo;
     }
 }

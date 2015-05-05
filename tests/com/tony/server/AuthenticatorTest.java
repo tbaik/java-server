@@ -51,8 +51,24 @@ public class AuthenticatorTest {
     }
 
     @Test
-    public void testDecodeUserInfo() throws Exception {
+    public void testIsAuthenticatedReturnsFalseIfErrorOnDecode() throws Exception {
+        Authenticator authenticator = new Authenticator();
+        authenticator.addToAuthenticationList(new Request("GET", "/blah"));
+        authenticator.addToAuthenticatedUsers("admin:hunter2");
+
+        Request authenticatedRequest = new Request("GET", "/blah");
+        authenticatedRequest.addToHeaders("Authorization", "Basic WrongEncodingLength=123");
+        assertFalse(authenticator.isAuthenticated(authenticatedRequest));
+    }
+
+    @Test
+    public void testDecodeUserInfoReturnsCorrectDecoding() throws Exception {
         assertEquals("admin:hunter2",
                 Authenticator.decodeUserInfo("YWRtaW46aHVudGVyMg=="));
+    }
+
+    @Test
+    public void testDecodeUserInfoReturnsErrorStringIfDecodingFails() throws Exception {
+       assertEquals("Error in decoding.", Authenticator.decodeUserInfo("YWRtaW46aHVudGVyMg="));
     }
 }
