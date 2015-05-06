@@ -4,6 +4,7 @@ import com.tony.server.response.FileContentResponse;
 import com.tony.server.response.HeadResponse;
 import com.tony.server.response.PutPostResponse;
 import com.tony.server.response.Response;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -11,11 +12,17 @@ import java.io.File;
 import static org.junit.Assert.*;
 
 public class RouterTest {
+    private Router router;
+
+    @Before
+    public void setUp() throws Exception {
+        router = new Router();
+    }
+
     @Test
     public void testRouteGivesBackCorrectResponse() throws Exception {
         Request fileContentRequest = new Request("GET", "/form");
 
-        Router router = new Router();
         Response getResponse = new FileContentResponse("/form");
         router.addRoute(fileContentRequest, getResponse);
 
@@ -27,7 +34,6 @@ public class RouterTest {
         Request putRequest = new Request("PUT", "/form");
         putRequest.setBody("data=hello");
 
-        Router router = new Router();
         Response putPostResponse = new PutPostResponse("filepath");
         router.addRoute(putRequest, putPostResponse);
 
@@ -40,7 +46,6 @@ public class RouterTest {
         Request getFileRequest = new Request("GET", "/something");
         Request getFileRequest2 = new Request("GET", "/something");
 
-        Router router = new Router();
         router.addRoute(getFileRequest, new FileContentResponse("/something"));
 
         assertTrue(router.hasRoute(getFileRequest2));
@@ -50,23 +55,13 @@ public class RouterTest {
         Request getFileRequest = new Request("GET", "/something");
         Request getFileRequest2 = new Request("GET", "/somethingElse");
 
-        Router router = new Router();
         router.addRoute(getFileRequest, new FileContentResponse("/something"));
 
         assertFalse(router.hasRoute(getFileRequest2));
     }
-    @Test
-    public void testAddRoute() throws Exception {
-        Router router = new Router();
-        Request getRequest = new Request();
-        getRequest.setHttpMethod("GET");
-        router.addRoute(getRequest, new FileContentResponse("/something"));
-
-    }
 
     @Test
     public void testAllowedMethodsForURI() throws Exception {
-        Router router = new Router();
         router.addRoute(new Request("GET", "/method_options"), new FileContentResponse("/method_options"));
         router.addRoute(new Request("HEAD", "/method_options"), new HeadResponse());
         router.addRoute(new Request("POST", "/method_options"), new PutPostResponse("/method_options"));

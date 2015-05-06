@@ -4,6 +4,7 @@ import com.tony.server.response.FileContentResponse;
 import com.tony.server.response.FourOhFourResponse;
 import com.tony.server.response.MethodNotAllowedResponse;
 import com.tony.server.response.UnauthorizedResponse;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -11,31 +12,34 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class ResponseDeterminerTest {
+    private ResponseDeterminer responseDeterminer;
+    private Router router;
+    private ArrayList<String> uriList;
+    private Authenticator authenticator;
+
+    @Before
+    public void setUp() throws Exception {
+        uriList = new ArrayList<>();
+        authenticator = new Authenticator();
+        router = new Router();
+        responseDeterminer = new ResponseDeterminer(router, uriList, authenticator);
+    }
+
     @Test
     public void testDetermineResponseReturnsResponseIfInRouter() throws Exception {
-        Logger logger = new Logger();
-        ArrayList<String> uriList = new ArrayList<>();
-        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/", uriList, logger);
-        Authenticator authenticator = new Authenticator();
-        ResponseDeterminer responseDeterminer =
-                new ResponseDeterminer(router, uriList, authenticator);
+        String filePath = "some_path/form";
         Request getRequest = new Request("GET", "/form");
+        router.addRoute(getRequest, new FileContentResponse(filePath));
 
-        assertEquals(new FileContentResponse("/form").getClass(),
+        assertEquals(new FileContentResponse("/pathsomewhere").getClass(),
                 responseDeterminer.determineResponse(getRequest).getClass());
     }
 
     @Test
     public void testDetermineResponseReturnsMethodNotAllowedIfNotInRouterButInURIList() throws Exception {
-        Logger logger = new Logger();
-        ArrayList<String> uriList = new ArrayList<>();
         uriList.add("/text-file.txt");
         uriList.add("/file1");
 
-        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/", uriList, logger);
-        Authenticator authenticator = new Authenticator();
-        ResponseDeterminer responseDeterminer =
-                new ResponseDeterminer(router, uriList, authenticator);
         Request putRequest = new Request("PUT", "/file1");
         Request postRequest = new Request("POST", "/text-file.txt");
 
@@ -47,12 +51,6 @@ public class ResponseDeterminerTest {
 
     @Test
     public void testDetermineResponseReturnsFourOhFourWhenNotFindingRouterNorURI() throws Exception {
-        Logger logger = new Logger();
-        ArrayList<String> uriList = new ArrayList<>();
-        Authenticator authenticator = new Authenticator();
-        Router router = Main.createCobSpecRouter(System.getProperty("user.dir") + "/public/", uriList, logger);
-        ResponseDeterminer responseDeterminer =
-                new ResponseDeterminer(router, uriList, authenticator);
         Request putRequest = new Request("PUT", "/file1");
 
         assertEquals(new FourOhFourResponse().getClass(),
@@ -62,22 +60,12 @@ public class ResponseDeterminerTest {
     @Test
     public void testFourOhOneResponseOnRequiredAuthenticationButIsNotAuthenticated() throws Exception {
         Request request = new Request("GET", "/file_needs_authorization");
-
-        Logger logger = new Logger();
-        ArrayList<String> uriList = new ArrayList<>();
-
-        Router router = new Router();
         router.addRoute(request, new FourOhFourResponse());
 
-        Authenticator authenticator = new Authenticator();
         authenticator.addToAuthenticatedUsers("user:notAuthorized");
         authenticator.addToAuthenticationList(request);
 
-        ResponseDeterminer responseDeterminer =
-                new ResponseDeterminer(router, uriList, authenticator);
-
         assertEquals(new UnauthorizedResponse().getClass(),
                 responseDeterminer.determineResponse(request).getClass());
-
     }
 }
