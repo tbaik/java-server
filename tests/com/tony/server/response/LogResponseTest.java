@@ -29,7 +29,7 @@ public class LogResponseTest {
         LogResponse logResponse = new LogResponse(logger);
         logger.storeLog("This is a log");
 
-        assertEquals("HTTP/1.1 200 OK\nThis is a log\n",
+        assertEquals("HTTP/1.1 200 OK\r\n\r\nThis is a log\r\n",
                 new String(logResponse.respond()));
     }
 }

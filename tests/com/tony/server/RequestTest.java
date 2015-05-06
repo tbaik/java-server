@@ -75,8 +75,8 @@ public class RequestTest {
         request.addToHeaders("Content-Type", "text/plain");
         request.setBody("Some Body Text");
 
-        String expectedString = "GET /logs HTTP/1.1\n" +
-                "Content-Type: text/plain\n\n" +
+        String expectedString = "GET /logs HTTP/1.1\r\n" +
+                "Content-Type: text/plain\r\n\r\n" +
                 "Some Body Text";
         assertEquals(expectedString, request.toString());
     }

@@ -1,14 +1,6 @@
 package com.tony.server;
 
-import com.tony.server.response.DeleteResponse;
-import com.tony.server.response.FileContentResponse;
-import com.tony.server.response.HeadResponse;
-import com.tony.server.response.PutPostResponse;
-import com.tony.server.response.OptionsResponse;
-import com.tony.server.response.ImageContentResponse;
-import com.tony.server.response.DirectoryResponse;
-import com.tony.server.response.RedirectResponse;
-import com.tony.server.response.LogResponse;
+import com.tony.server.response.*;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -72,7 +72,8 @@ public class Request {
     }
 
     public String toString() {
-        String statusLine = getHttpMethod() + " " + getURI() + " HTTP/1.1\n";
-        return ResponseBuilder.buildResponse(statusLine, getHeaders(), getBody());
+        String statusLine = getHttpMethod() + " " + getURI() + " HTTP/1.1\r\n";
+        return statusLine + ResponseBuilder.buildHeaderString(getHeaders())
+                + ResponseBuilder.buildBody(getBody());
     }
 }

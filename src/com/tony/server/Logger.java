@@ -8,7 +8,7 @@ public class Logger {
     }
 
     public void storeLog(String logMessage) {
-        log += logMessage + "\n";
+        log += logMessage + "\r\n";
         System.out.println(logMessage);
     }
 

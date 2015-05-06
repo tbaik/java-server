@@ -15,7 +15,7 @@ public class DeleteResponseTest {
         String testFilePath = System.getProperty("user.dir") + "/test_form";
         File testFile = new File(testFilePath);
         DeleteResponse deleteResponse = new DeleteResponse(testFilePath);
-        String expectedResponse = "HTTP/1.1 200 OK\n";
+        String expectedResponse = "HTTP/1.1 200 OK\r\n";
 
         PrintWriter writer = new PrintWriter(testFilePath, "UTF-8");
         writer.println("The first line");

@@ -35,9 +35,9 @@ public class Authenticator {
     }
 
     public boolean isAuthenticated(Request request) {
-        HashMap headers = request.getHeaders();
+        HashMap<String, String> headers = request.getHeaders();
         if(headers.containsKey("Authorization")){
-            String authorizationValue = request.getHeaders().get("Authorization");
+            String authorizationValue = headers.get("Authorization");
             String encodedUserInfo = authorizationValue.split(" ")[ENCODED_USER_INFO];
             return authenticatedUsers.contains(decodeUserInfo(encodedUserInfo));
         }
@@ -45,10 +45,10 @@ public class Authenticator {
     }
 
     public static String decodeUserInfo(String encodedUserInfo) {
-        String decodedUserInfo = "";
+        String decodedUserInfo;
         try{
            decodedUserInfo = new String(Base64.getDecoder().decode(encodedUserInfo));
-        } catch(Exception e){
+        } catch(IllegalArgumentException e){
            return "Error in decoding.";
         }
         return decodedUserInfo;

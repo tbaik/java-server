@@ -27,7 +27,7 @@ public class LoggerTest {
         Logger logger = new Logger();
         logger.storeLog("Some Log Message");
 
-        assertEquals("Some Log Message\n", logger.getLog());
+        assertEquals("Some Log Message\r\n", logger.getLog());
     }
 
     @Test

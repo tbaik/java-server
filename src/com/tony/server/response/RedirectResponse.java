@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class RedirectResponse extends Response{
     public RedirectResponse(String redirectPath) {
-        setStatusLine("HTTP/1.1 302 Found\n");
+        setStatus(Status.FOUND);
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Location", redirectPath);
         setHeaders(headers);

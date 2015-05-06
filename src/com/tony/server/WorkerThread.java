@@ -21,12 +21,12 @@ public class WorkerThread implements Runnable {
     public void run() {
         try {
             Request request = RequestParser.parseRequest(getInputStream());
-            logger.storeLog("Received Request:\n");
+            logger.storeLog("Received Request:\r\n");
             logger.storeLog(request.toString());
 
             Response response = responseDeterminer.determineResponse(request);
             byte[] responseBytes = response.respond();
-            logger.storeLog("Sending Response:\n");
+            logger.storeLog("Sending Response:\r\n");
             logger.storeLog(new String(responseBytes));
 
             getOutputStream().write(responseBytes);

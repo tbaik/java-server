@@ -18,8 +18,8 @@ public class OptionsResponseTest {
         router.addRoute(new Request("PUT", "/method_options"), new PutPostResponse("path/method_options"));
 
         OptionsResponse optionsResponse = new OptionsResponse(router.allowedMethodsForURI("/method_options"), "/method_options");
-        String expectedResponse = "HTTP/1.1 200 OK\n" +
-                "Allow: GET,POST,HEAD,PUT,OPTIONS\n";
+        String expectedResponse = "HTTP/1.1 200 OK\r\n" +
+                "Allow: GET,POST,HEAD,PUT,OPTIONS\r\n";
 
         assertEquals(expectedResponse, new String(optionsResponse.respond()));
     }
