@@ -13,10 +13,10 @@ public class ServerTest {
     public void testItAcceptsAClientRequest() throws Exception {
         Router router = new Router();
         ArrayList<String> uriList = new ArrayList<>();
-        Authenticator authenticator = new Authenticator();
+        Logger logger = new Logger();
+        Authenticator authenticator = new Authenticator(logger);
         ResponseDeterminer responseDeterminer =
                 new ResponseDeterminer(router, uriList, authenticator);
-        Logger logger = new Logger();
         Server server = new Server(4000, responseDeterminer, logger);
 
         new Thread(server).start();

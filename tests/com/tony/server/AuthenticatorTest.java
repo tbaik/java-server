@@ -3,6 +3,9 @@ package com.tony.server;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -13,7 +16,7 @@ public class AuthenticatorTest {
 
     @Before
     public void setUp() throws Exception {
-        authenticator = new Authenticator();
+        authenticator = new Authenticator(new Logger());
         getRequest = new Request("GET", "/blah");
         authenticator.addToAuthenticationList(getRequest);
         authenticator.addToAuthenticatedUsers("admin:hunter2");
@@ -56,11 +59,22 @@ public class AuthenticatorTest {
     @Test
     public void testDecodeUserInfoReturnsCorrectDecoding() throws Exception {
         assertEquals("admin:hunter2",
-                Authenticator.decodeUserInfo("YWRtaW46aHVudGVyMg=="));
+                authenticator.decodeUserInfo("YWRtaW46aHVudGVyMg=="));
     }
 
     @Test
     public void testDecodeUserInfoReturnsErrorStringIfDecodingFails() throws Exception {
-       assertEquals("Error in decoding.", Authenticator.decodeUserInfo("YWRtaW46aHVudGVyMg="));
+       assertEquals("Error in decoding.", authenticator.decodeUserInfo("YWRtaW46aHVudGVyMg="));
+    }
+
+    @Test
+    public void testStoresExceptionInLogIfDecodingThrowsException() throws Exception {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        authenticator.decodeUserInfo("YWRtaW46aHVudGVyMg=");
+        String expectedErrorLog = "java.lang.IllegalArgumentException: Input byte array has wrong 4-byte ending unit\n";
+
+        assertEquals(expectedErrorLog, outContent.toString());
+        System.setOut(null);
     }
 }

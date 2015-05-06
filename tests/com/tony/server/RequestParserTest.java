@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class RequestParserTest {
     byte input[] = ("GET /logs HTTP/1.1\n" +

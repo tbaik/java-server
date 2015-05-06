@@ -20,7 +20,7 @@ public class ResponseDeterminerTest {
     @Before
     public void setUp() throws Exception {
         uriList = new ArrayList<>();
-        authenticator = new Authenticator();
+        authenticator = new Authenticator(new Logger());
         router = new Router();
         responseDeterminer = new ResponseDeterminer(router, uriList, authenticator);
     }

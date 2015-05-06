@@ -6,10 +6,12 @@ import java.util.HashMap;
 
 public class Authenticator {
     private static final int ENCODED_USER_INFO = 1;
+    private final Logger logger;
     private ArrayList<Request> authenticationList;
     private ArrayList<String> authenticatedUsers;
 
-    public Authenticator() {
+    public Authenticator(Logger logger) {
+        this.logger = logger;
         this.authenticationList = new ArrayList<>();
         this.authenticatedUsers = new ArrayList<>();
     }
@@ -44,12 +46,13 @@ public class Authenticator {
         return false;
     }
 
-    public static String decodeUserInfo(String encodedUserInfo) {
+    public String decodeUserInfo(String encodedUserInfo) {
         String decodedUserInfo;
         try{
            decodedUserInfo = new String(Base64.getDecoder().decode(encodedUserInfo));
         } catch(IllegalArgumentException e){
-           return "Error in decoding.";
+            logger.storeLog(e.toString());
+            return "Error in decoding.";
         }
         return decodedUserInfo;
     }

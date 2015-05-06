@@ -24,9 +24,9 @@ public class WorkerThreadTest {
         router = new Router();
         router.addRoute(new Request("GET", "/"), new HeadResponse());
 
-        ArrayList uriList = new ArrayList();
-        Authenticator authenticator = new Authenticator();
         logger = new Logger();
+        ArrayList uriList = new ArrayList();
+        Authenticator authenticator = new Authenticator(logger);
         worker = new MockWorker(new Socket(),
                 new ResponseDeterminer(router, uriList, authenticator)
                 , logger);

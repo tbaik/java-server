@@ -1,6 +1,14 @@
 package com.tony.server;
 
-import com.tony.server.response.*;
+import com.tony.server.response.DeleteResponse;
+import com.tony.server.response.DirectoryResponse;
+import com.tony.server.response.FileContentResponse;
+import com.tony.server.response.HeadResponse;
+import com.tony.server.response.ImageContentResponse;
+import com.tony.server.response.LogResponse;
+import com.tony.server.response.OptionsResponse;
+import com.tony.server.response.PutPostResponse;
+import com.tony.server.response.RedirectResponse;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,11 +18,11 @@ public class Main {
         ArgumentParser argumentParser = new ArgumentParser();
         argumentParser.parseArguments(args);
 
-        Authenticator authenticator = new Authenticator();
+        Logger logger = new Logger();
+        Authenticator authenticator = new Authenticator(logger);
         authenticator.addToAuthenticatedUsers("admin:hunter2");
         authenticator.addToAuthenticationList(new Request("GET", "/logs"));
 
-        Logger logger = new Logger();
         ArrayList<String> uriList = createURIList(argumentParser.getDirectory());
         Router router = createCobSpecRouter(argumentParser.getDirectory(), uriList, logger);
         ResponseDeterminer responseDeterminer =
