@@ -10,6 +10,7 @@ import com.tony.server.response.OptionsResponse;
 import com.tony.server.response.PatchResponse;
 import com.tony.server.response.PutPostResponse;
 import com.tony.server.response.RedirectResponse;
+import com.tony.server.response.PartialContentResponse;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -78,6 +79,7 @@ public class Main {
         router.addRoute(new Request("GET", "/logs"), new LogResponse(logger));
         router.addRoute(new Request("GET", "/patch-content.txt"), new FileContentResponse(directoryPath + "/patch-content.txt"));
         router.addRoute(new Request("PATCH", "/patch-content.txt"), new PatchResponse(directoryPath + "/patch-content.txt"));
+        router.addRoute(new Request("GET", "/partial_content.txt"), new PartialContentResponse(directoryPath + "/partial_content.txt"));
         return router;
     }
 }
