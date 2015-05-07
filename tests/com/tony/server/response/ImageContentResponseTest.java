@@ -3,6 +3,7 @@ package com.tony.server.response;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ImageContentResponseTest extends FileTest{
     @Test
@@ -44,9 +45,8 @@ public class ImageContentResponseTest extends FileTest{
         ImageContentResponse imageContentResponse = new ImageContentResponse(System.getProperty("user.dir") + "/noimage.png");
         String expectedResponse = "HTTP/1.1 500 Internal Server Error\r\n" +
                 "\r\n" +
-                "java.nio.file.NoSuchFileException: /Users/tony/Developer/java-server/noimage.png";
+                "java.nio.file.NoSuchFileException";
 
-        assertEquals(expectedResponse, new String(imageContentResponse.respond()));
-
+        assertTrue(new String(imageContentResponse.respond()).contains(expectedResponse));
     }
 }

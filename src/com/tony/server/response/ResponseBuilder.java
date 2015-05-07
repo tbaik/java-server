@@ -45,7 +45,7 @@ public class ResponseBuilder {
             baos.write(CRLF.getBytes());
             baos.write(imageBytes);
         } catch (IOException e) {
-            e.printStackTrace();
+            return new InternalErrorResponse(e.toString()).respond();
         }
         return baos.toByteArray();
     }

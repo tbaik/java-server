@@ -5,7 +5,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -28,8 +33,8 @@ public class WorkerThreadTest {
         ArrayList uriList = new ArrayList();
         Authenticator authenticator = new Authenticator(logger);
         worker = new MockWorker(new Socket(),
-                new ResponseDeterminer(router, uriList, authenticator)
-                , logger);
+                new ResponseDeterminer(router, uriList, authenticator),
+                logger);
     }
 
     @After
