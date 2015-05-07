@@ -9,16 +9,16 @@ import java.io.File;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class AuthenticatorTest {
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private Authenticator authenticator;
     private Request getRequest;
 
     @Before
     public void setUp() throws Exception {
-        System.setOut(new PrintStream(outContent));
+        System.setOut(new PrintStream(new ByteArrayOutputStream()));
         authenticator = new Authenticator(new Logger());
         getRequest = new Request("GET", "/blah");
         authenticator.addToAuthorizationList(getRequest);
@@ -65,23 +65,6 @@ public class AuthenticatorTest {
     }
 
     @Test
-    public void testDecodeUserInfoReturnsCorrectDecoding() throws Exception {
-        assertEquals("admin:hunter2",
-                authenticator.decodeUserInfo("YWRtaW46aHVudGVyMg=="));
-    }
-
-    @Test
-    public void testDecodeUserInfoReturnsErrorStringIfDecodingFails() throws Exception {
-       assertEquals("Error in decoding.", authenticator.decodeUserInfo("YWRtaW46aHVudGVyMg="));
-    }
-
-    @Test
-    public void testStoresExceptionInLogIfDecodingThrowsException() throws Exception {
-        authenticator.decodeUserInfo("YWRtaW46aHVudGVyMg=");
-        String expectedErrorLog = "java.lang.IllegalArgumentException: Input byte array has wrong 4-byte ending unit\n";
-
-        assertEquals(expectedErrorLog, outContent.toString());
-    }
     public void testMatchesEtag() throws Exception {
         PrintWriter writer = new PrintWriter(System.getProperty("user.dir") + "/public/testEtag", "UTF-8");
         writer.print("normal text");
@@ -93,12 +76,5 @@ public class AuthenticatorTest {
                 System.getProperty("user.dir") + "/public/testEtag"));
 
         new File(System.getProperty("user.dir") + "/public/testEtag").delete();
-    }
-
-    @Test
-    public void testEncodeWithSHA1ReturnsCorrectSHA1Encoding() throws Exception {
-        byte[] text = "text".getBytes();
-        String textAsSHA1 = "372ea08cab33e71c02c651dbc83a474d32c676ea";
-        assertEquals(textAsSHA1, authenticator.encodeWithSHA1(text));
     }
 }

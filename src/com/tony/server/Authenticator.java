@@ -1,12 +1,12 @@
 package com.tony.server;
 
+import com.tony.server.decoder.UserInfoDecoder;
+import com.tony.server.encoder.SHA1Encoder;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.HashMap;
 
 public class Authenticator {
@@ -46,20 +46,9 @@ public class Authenticator {
         if(headers.containsKey("Authorization")){
             String authorizationValue = headers.get("Authorization");
             String encodedUserInfo = authorizationValue.split(" ")[ENCODED_USER_INFO];
-            return authorizedUsers.contains(decodeUserInfo(encodedUserInfo));
+            return authorizedUsers.contains(UserInfoDecoder.decode(encodedUserInfo, logger));
         }
         return false;
-    }
-
-    public String decodeUserInfo(String encodedUserInfo) {
-        String decodedUserInfo;
-        try{
-           decodedUserInfo = new String(Base64.getDecoder().decode(encodedUserInfo));
-        } catch(IllegalArgumentException e){
-            logger.storeLog(e.toString());
-            return "Error in decoding.";
-        }
-        return decodedUserInfo;
     }
 
     public boolean matchesEtag(String etag, String filePath) {
@@ -70,29 +59,11 @@ public class Authenticator {
         }
         try {
             byte[] currentFileText = Files.readAllBytes(currentFile.toPath());
-            String currentFileEtag = encodeWithSHA1(currentFileText);
+            String currentFileEtag = SHA1Encoder.encode(currentFileText, logger);
             return currentFileEtag.contains(etag);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return false;
-
-    }
-
-    public String encodeWithSHA1(byte[] text) {
-        MessageDigest messageDigest = null;
-        try {
-            messageDigest = MessageDigest.getInstance("SHA-1");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        messageDigest.update(text);
-        text = messageDigest.digest();
-
-        StringBuilder sb = new StringBuilder(text.length * 2);
-        for(byte textByte: text) {
-            sb.append(String.format("%02x", textByte & 0xff));
-        }
-        return sb.toString();
     }
 }
