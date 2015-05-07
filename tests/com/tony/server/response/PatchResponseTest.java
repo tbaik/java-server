@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.io.File;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class PatchResponseTest extends FileTest{
@@ -33,10 +34,12 @@ public class PatchResponseTest extends FileTest{
 
     @Test
     public void testFileIsChangedWithResponse() throws Exception {
+        File testFile = new File(filePath);
+        assertFalse(testFile.isFile());
+
         response.setRequestBody("patch body");
         response.respond();
 
-        File testFile = new File(filePath);
         assertTrue(testFile.isFile());
         deleteTestFile(filePath);
     }

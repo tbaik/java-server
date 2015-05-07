@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 public class PutPostResponse extends Response {
-    private final String filePath;
+    protected final String filePath;
     private String requestBody;
 
     public PutPostResponse(String filePath) {
