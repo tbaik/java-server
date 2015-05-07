@@ -4,43 +4,51 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ResponseBuilderTest {
     @Test
     public void testBuildResponse() throws Exception {
-        String correctResponse = "HTTP/1.1 200 OK\n" +
-                "Content-Length: length\n" +
-                "Content-Type: text/xml; charset=utf-8\n" +
-                "\n" +
-                "  <EnlightenResponse xmlns=\"http://clearforest.com/\">\n" +
-                "  <EnlightenResult>string</EnlightenResult>\n" +
+        String correctResponse = "HTTP/1.1 200 OK\r\n" +
+                "Content-Length: length\r\n" +
+                "Content-Type: text/xml; charset=utf-8\r\n" +
+                "\r\n" +
+                "  <EnlightenResponse xmlns=\"http://clearforest.com/\">\r\n" +
+                "  <EnlightenResult>string</EnlightenResult>\r\n" +
                 "  </EnlightenResponse>";
-        String statusLine = "HTTP/1.1 200 OK\n";
+        Status status = Status.OK;
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Content-Length", "length");
         headers.put("Content-Type", "text/xml; charset=utf-8");
-        String body = "  <EnlightenResponse xmlns=\"http://clearforest.com/\">\n" +
-                "  <EnlightenResult>string</EnlightenResult>\n" +
+        String body = "  <EnlightenResponse xmlns=\"http://clearforest.com/\">\r\n" +
+                "  <EnlightenResult>string</EnlightenResult>\r\n" +
                 "  </EnlightenResponse>";
 
         assertEquals(correctResponse,
-                ResponseBuilder.buildResponse(statusLine, headers, body));
+                ResponseBuilder.buildResponse(status, headers, body));
 
     }
 
     @Test
     public void testBuildImageResponse() throws Exception {
-        String correctResponse = "HTTP/1.1 200 OK\n" +
-                "Content-Type: image/jpeg\n\n" +
+        String expectedResponse = "HTTP/1.1 200 OK\r\n" +
+                "Content-Type: image/jpeg\r\n\r\n" +
                 "Appended imageBytes";
-        String statusLine = "HTTP/1.1 200 OK\n";
+        Status status = Status.OK;
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "image/jpeg");
 
         byte[] imageBytes = "Appended imageBytes".getBytes();
 
-        assertEquals(correctResponse, new String(ResponseBuilder.buildImageResponse(statusLine, headers, imageBytes)));
+        assertEquals(expectedResponse, new String(ResponseBuilder.buildImageResponse(status, headers, imageBytes)));
+    }
+
+    @Test
+    public void testBuildStatusLine() throws Exception {
+        Status okStatus = Status.OK;
+        String expectedStatusLine = "HTTP/1.1 200 OK\r\n";
+
+        assertEquals(expectedStatusLine, ResponseBuilder.buildStatusLine(okStatus));
     }
 
     @Test
@@ -49,15 +57,15 @@ public class ResponseBuilderTest {
         headers.put("Content-Length", "length");
         headers.put("Content-Type", "text/xml; charset=utf-8");
 
-        String correctHeaderString = "Content-Length: length\n" +
-                "Content-Type: text/xml; charset=utf-8\n";
+        String correctHeaderString = "Content-Length: length\r\n" +
+                "Content-Type: text/xml; charset=utf-8\r\n";
 
         assertEquals(correctHeaderString, ResponseBuilder.buildHeaderString(headers));
     }
 
     @Test
     public void testBuildHeaderLine() throws Exception {
-        assertEquals("Content-Type: text/xml\n", ResponseBuilder.buildHeaderLine("Content-Type", "text/xml"));
+        assertEquals("Content-Type: text/xml\r\n", ResponseBuilder.buildHeaderLine("Content-Type", "text/xml"));
     }
 
     @Test
@@ -67,7 +75,6 @@ public class ResponseBuilderTest {
 
     @Test
     public void testBuildBodyWhenHasBody() throws Exception {
-        assertEquals("\nblah", ResponseBuilder.buildBody("blah"));
-
+        assertEquals("\r\nblah", ResponseBuilder.buildBody("blah"));
     }
 }

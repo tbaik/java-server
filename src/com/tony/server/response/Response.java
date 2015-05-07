@@ -3,17 +3,17 @@ package com.tony.server.response;
 import java.util.HashMap;
 
 public abstract class Response {
-   private String statusLine;
-   private HashMap<String, String> headers;
+   private Status status;
+   private HashMap<String, String> headers = new HashMap<>();
    private String body;
 
    public byte[] respond(){
-      return ResponseBuilder.buildResponse(getStatusLine(),
+      return ResponseBuilder.buildResponse(getStatus(),
               getHeaders(), getBody()).getBytes();
    }
 
-   public String getStatusLine(){
-      return statusLine;
+   public Status getStatus(){
+      return status;
    }
    public HashMap<String, String> getHeaders(){
       return headers;
@@ -22,8 +22,8 @@ public abstract class Response {
       return body;
    }
 
-   public void setStatusLine(String statusLine) {
-      this.statusLine = statusLine;
+   public void setStatus(Status status) {
+      this.status = status;
    }
 
    public void setHeaders(HashMap<String, String> headers) {

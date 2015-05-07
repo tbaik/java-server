@@ -18,12 +18,13 @@ public class DirectoryResponseTest {
         DirectoryResponse directoryResponse =
                 new DirectoryResponse(uriList);
 
-        String expectedResponse = "HTTP/1.1 200 OK\n" +
-                "\n" +
-                "<a href=\"/file1\">/file1</a>\n" +
-                "<a href=\"/file2\">/file2</a>\n" +
-                "<a href=\"/image.gif\">/image.gif</a>\n" +
-                "<a href=\"/patch-content.txt\">/patch-content.txt</a>\n";
+        String expectedResponse = "HTTP/1.1 200 OK\r\n" +
+                "\r\n" +
+                "<a href=\"/file1\">/file1</a>\r\n" +
+                "<a href=\"/file2\">/file2</a>\r\n" +
+                "<a href=\"/image.gif\">/image.gif</a>\r\n" +
+                "<a href=\"/patch-content.txt\">/patch-content.txt</a>\r\n";
+
         assertEquals(expectedResponse,
                 new String(directoryResponse.respond()));
     }
@@ -35,9 +36,9 @@ public class DirectoryResponseTest {
         uriList.add("/file2");
         uriList.add("/image.gif");
 
-        String expectedResponse = "<a href=\"/file1\">/file1</a>\n" +
-                "<a href=\"/file2\">/file2</a>\n" +
-                "<a href=\"/image.gif\">/image.gif</a>\n";
+        String expectedResponse = "<a href=\"/file1\">/file1</a>\r\n" +
+                "<a href=\"/file2\">/file2</a>\r\n" +
+                "<a href=\"/image.gif\">/image.gif</a>\r\n";
 
         assertEquals(expectedResponse,
                 DirectoryResponse.createBodyFromLinks(uriList));

@@ -4,17 +4,17 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ResponseTest {
 
     @Test
     public void testRespondBuildsResponseForExtendingClass() throws Exception {
         MockResponse mockResponse = new MockResponse();
-        String expectedResponse = "HTTP/1.1 200 OK\n" +
-                "Content-Length: 4\n" +
-                "Content-Type: Content-Type: text/xml; charset=utf-8\n" +
-                "\n" +
+        String expectedResponse = "HTTP/1.1 200 OK\r\n" +
+                "Content-Length: 4\r\n" +
+                "Content-Type: Content-Type: text/xml; charset=utf-8\r\n" +
+                "\r\n" +
                 "body";
         assertEquals(expectedResponse, new String(mockResponse.respond()));
     }
@@ -22,8 +22,8 @@ public class ResponseTest {
     private class MockResponse extends Response{
 
         @Override
-        public String getStatusLine() {
-            return "HTTP/1.1 200 OK\n";
+        public Status getStatus() {
+            return Status.OK;
         }
 
         @Override

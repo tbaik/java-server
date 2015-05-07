@@ -8,19 +8,28 @@ import java.net.Socket;
 public class WorkerThread implements Runnable {
 
     private final ResponseDeterminer responseDeterminer;
+    private final Logger logger;
     private Socket clientSocket;
 
-    public WorkerThread(Socket clientSocket, ResponseDeterminer responseDeterminer) throws IOException {
+    public WorkerThread(Socket clientSocket, ResponseDeterminer responseDeterminer, Logger logger) throws IOException {
         this.clientSocket = clientSocket;
         this.responseDeterminer = responseDeterminer;
+        this.logger = logger;
     }
 
     @Override
     public void run() {
         try {
             Request request = RequestParser.parseRequest(getInputStream());
+            logger.storeLog("Received Request:\r\n");
+            logger.storeLog(request.toString());
+
             Response response = responseDeterminer.determineResponse(request);
-            getOutputStream().write(response.respond());
+            byte[] responseBytes = response.respond();
+            logger.storeLog("Sending Response:\r\n");
+            logger.storeLog(new String(responseBytes));
+
+            getOutputStream().write(responseBytes);
             getOutputStream().close();
             clientSocket.close();
         } catch (IOException e) {

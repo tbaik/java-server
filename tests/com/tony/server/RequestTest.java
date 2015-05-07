@@ -2,7 +2,8 @@ package com.tony.server;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class RequestTest {
 
@@ -64,5 +65,19 @@ public class RequestTest {
 
         assertEquals("blahblah", request.getHeaders().get("Allow"));
 
+    }
+
+    @Test
+    public void testToStringConvertsRequestBackToOriginalRequest() throws Exception {
+        Request request = new Request();
+        request.setHttpMethod("GET");
+        request.setUri("/logs");
+        request.addToHeaders("Content-Type", "text/plain");
+        request.setBody("Some Body Text");
+
+        String expectedString = "GET /logs HTTP/1.1\r\n" +
+                "Content-Type: text/plain\r\n\r\n" +
+                "Some Body Text";
+        assertEquals(expectedString, request.toString());
     }
 }

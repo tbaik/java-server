@@ -3,7 +3,6 @@ package com.tony.server.response;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 
 public class PutPostResponse extends Response {
     private final String filePath;
@@ -11,14 +10,12 @@ public class PutPostResponse extends Response {
 
     public PutPostResponse(String filePath) {
         this.filePath = filePath;
-        setStatusLine("HTTP/1.1 200 OK\n");
-        setHeaders(new HashMap<>());
-        setBody("");
+        setStatus(Status.OK);
     }
 
     public byte[] respond(){
         putPostContent();
-        return ResponseBuilder.buildResponse(getStatusLine(),
+        return ResponseBuilder.buildResponse(getStatus(),
                 getHeaders(), getBody()).getBytes();
     }
 

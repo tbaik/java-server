@@ -15,7 +15,7 @@ public class PutPostResponseTest {
         testFile.delete();
 
         PutPostResponse putPostResponse = new PutPostResponse(testFilePath);
-        String expectedResponse = "HTTP/1.1 200 OK\n";
+        String expectedResponse = "HTTP/1.1 200 OK\r\n";
 
         assertEquals(expectedResponse, new String(putPostResponse.respond()));
         assertTrue(testFile.isFile());

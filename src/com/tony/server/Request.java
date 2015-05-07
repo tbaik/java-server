@@ -1,5 +1,7 @@
 package com.tony.server;
 
+import com.tony.server.response.ResponseBuilder;
+
 import java.util.HashMap;
 
 public class Request {
@@ -67,5 +69,11 @@ public class Request {
 
     public String getBody() {
         return body;
+    }
+
+    public String toString() {
+        String statusLine = getHttpMethod() + " " + getURI() + " HTTP/1.1\r\n";
+        return statusLine + ResponseBuilder.buildHeaderString(getHeaders())
+                + ResponseBuilder.buildBody(getBody());
     }
 }

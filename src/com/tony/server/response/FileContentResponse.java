@@ -3,7 +3,6 @@ package com.tony.server.response;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.HashMap;
 
 public class FileContentResponse extends Response{
     private final String filePath;
@@ -19,13 +18,12 @@ public class FileContentResponse extends Response{
         } catch (IOException e) {
             return new InternalErrorResponse(e.toString()).respond();
         }
-        return ResponseBuilder.buildResponse(getStatusLine(),
+        return ResponseBuilder.buildResponse(getStatus(),
                 getHeaders(), getBody()).getBytes();
     }
 
     public FileContentResponse(String filePath) {
         this.filePath = filePath;
-        setStatusLine("HTTP/1.1 200 OK\n");
-        setHeaders(new HashMap<>());
+        setStatus(Status.OK);
     }
 }

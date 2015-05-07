@@ -12,7 +12,7 @@ public class ImageContentResponse extends Response{
     public byte[] respond(){
         try {
             byte[] imageBytes = Files.readAllBytes(Paths.get(filePath));
-            return ResponseBuilder.buildImageResponse(getStatusLine(), getHeaders(), imageBytes);
+            return ResponseBuilder.buildImageResponse(getStatus(), getHeaders(), imageBytes);
         } catch (IOException e) {
             return new InternalErrorResponse(e.toString()).respond();
         }
@@ -23,7 +23,7 @@ public class ImageContentResponse extends Response{
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Content-Type", imageType(filePath));
 
-        setStatusLine("HTTP/1.1 200 OK\n");
+        setStatus(Status.OK);
         setHeaders(headers);
     }
 

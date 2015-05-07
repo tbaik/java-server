@@ -9,13 +9,15 @@ import java.util.concurrent.Executors;
 public class Server implements Runnable{
     private final int port;
     private final ResponseDeterminer responseDeterminer;
+    private final Logger logger;
     private ServerSocket serverSocket;
     private boolean isRunning = true;
-    private ExecutorService threadPool = Executors.newFixedThreadPool(100);
+    private ExecutorService threadPool = Executors.newFixedThreadPool(50);
 
-    public Server(int port, ResponseDeterminer responseDeterminer) {
+    public Server(int port, ResponseDeterminer responseDeterminer, Logger logger) {
         this.port = port;
         this.responseDeterminer = responseDeterminer;
+        this.logger = logger;
     }
 
     @Override
@@ -24,7 +26,7 @@ public class Server implements Runnable{
         while(isRunning) {
             try {
                 Socket clientSocket = serverSocket.accept();
-                threadPool.execute(new WorkerThread(clientSocket, responseDeterminer));
+                threadPool.execute(new WorkerThread(clientSocket, responseDeterminer, logger));
             } catch (IOException e) {
                 if (isRunning) {
                     System.err.println("Server stopped");
