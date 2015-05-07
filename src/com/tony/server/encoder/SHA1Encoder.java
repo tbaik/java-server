@@ -11,7 +11,7 @@ public class SHA1Encoder {
         try {
             messageDigest = MessageDigest.getInstance("SHA-1");
         } catch (NoSuchAlgorithmException e) {
-            logger.storeLog(e.toString());
+            logger.log(e.toString());
             e.printStackTrace();
         }
         messageDigest.update(text);

@@ -7,12 +7,9 @@ public class Logger {
         this.log = "";
     }
 
-    public void storeLog(String logMessage) {
-        if(logMessage.length() > 5000) {
-            logMessage = logMessage.substring(0, 200);
-        }
-        log += logMessage + "\r\n";
-        System.out.println(logMessage);
+    public void log(String message) {
+        log += message + "\r\n";
+        System.out.println(message);
     }
 
     public String getLog() {

@@ -1,6 +1,7 @@
 package com.tony.server;
 
 import com.tony.server.response.HeadResponse;
+import com.tony.server.response.ImageContentResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -82,6 +83,18 @@ public class WorkerThreadTest {
                 "Sending Response:\r\n" +
                 "\n" +
                 "HTTP/1.1 200 OK\r\n\n";
+
+        assertEquals(expectedLog, outContent.toString());
+    }
+
+    @Test
+    public void testLogResponseForImageContentResponseGivesDifferentImageBody() throws Exception {
+        ImageContentResponse response = new ImageContentResponse("something/image.jpeg");
+        worker.logResponse(response, "some image bytes".getBytes());
+        String expectedLog = "HTTP/1.1 200 OK\r\n" +
+                "Content-Type: image/jpeg\r\n" +
+                "\r\n" +
+                "Image body not shown in log\n";
 
         assertEquals(expectedLog, outContent.toString());
     }

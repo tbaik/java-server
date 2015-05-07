@@ -10,7 +10,7 @@ public class UserInfoDecoder {
         try{
            decodedUserInfo = new String(Base64.getDecoder().decode(encodedUserInfo));
         } catch(IllegalArgumentException e){
-            logger.storeLog(e.toString());
+            logger.log(e.toString());
             return "Error in decoding.";
         }
         return decodedUserInfo;
