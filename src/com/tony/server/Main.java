@@ -21,8 +21,8 @@ public class Main {
 
         Logger logger = new Logger();
         Authenticator authenticator = new Authenticator(logger);
-        authenticator.addToAuthorizedUsers("admin:hunter2");
-        authenticator.addToAuthorizationList(new Request("GET", "/logs"));
+        authenticator.addToAuthenticatedUsers("admin:hunter2");
+        authenticator.addToAuthenticationList(new Request("GET", "/logs"));
 
         ArrayList<String> uriList = createURIList(argumentParser.getDirectory());
         Router router = createCobSpecRouter(argumentParser.getDirectory(), uriList, logger);

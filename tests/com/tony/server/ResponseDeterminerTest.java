@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ResponseDeterminerTest {
     private ResponseDeterminer responseDeterminer;
@@ -67,8 +68,8 @@ public class ResponseDeterminerTest {
         Request request = new Request("GET", "/file_needs_authorization");
         router.addRoute(request, new FourOhFourResponse());
 
-        authenticator.addToAuthorizedUsers("user:notAuthorized");
-        authenticator.addToAuthorizationList(request);
+        authenticator.addToAuthenticatedUsers("user:notAuthorized");
+        authenticator.addToAuthenticationList(request);
 
         assertEquals(new UnauthorizedResponse().getClass(),
                 responseDeterminer.determineResponse(request).getClass());
@@ -107,5 +108,19 @@ public class ResponseDeterminerTest {
         router.addRoute(new Request("PATCH", "/something"), new PatchResponse(""));
 
         assertEquals(PreconditionFailedResponse.class, responseDeterminer.determineResponse(request).getClass());
+    }
+
+    @Test
+    public void testEtagMatchesCurrentFileEtag() throws Exception {
+        PrintWriter writer = new PrintWriter(System.getProperty("user.dir") + "/public/testEtag", "UTF-8");
+        writer.print("normal text");
+        writer.close();
+
+        String normalTextAsEtag = "1e63fd95c77abc6e56efcc92065f3de9cbcc0941";
+
+        assertTrue(responseDeterminer.fileEtagMatchesGivenEtag(System.getProperty("user.dir") + "/public/testEtag",
+                normalTextAsEtag));
+
+        new File(System.getProperty("user.dir") + "/public/testEtag").delete();
     }
 }
