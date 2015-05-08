@@ -19,5 +19,4 @@ public class ParameterDecodeResponseTest {
                 "variable_2 = stuff";
         assertEquals(expectedResponse, new String(response.respond()));
     }
-
 }

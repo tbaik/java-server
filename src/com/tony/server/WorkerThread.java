@@ -10,7 +10,6 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 public class WorkerThread implements Runnable {
-
     private final ResponseDeterminer responseDeterminer;
     private final Logger logger;
     private Socket clientSocket;

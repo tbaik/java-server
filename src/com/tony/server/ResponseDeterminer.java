@@ -27,19 +27,7 @@ public class ResponseDeterminer {
 
     public Response determineResponse(Request request) {
         if(router.hasRoute(request)){
-            if(authenticator.requiresAuthentication(request)
-                    && !authenticator.isAuthenticated(request)){
-                return new UnauthorizedResponse();
-            } else if(request.getHttpMethod().equals("PATCH")){
-                String filePath = ((PatchResponse)router.route(request)).getFilePath();
-                if(!fileEtagMatchesGivenEtag(filePath, request.getHeaders().get("If-Match"))) {
-                    return new PreconditionFailedResponse();
-                } else {
-                    return router.route(request);
-                }
-            } else {
-                return router.route(request);
-            }
+            return handleRoutedResponse(request);
         } else if(uriList.contains(request.getURI())){
             return new MethodNotAllowedResponse();
         } else if(hasParameters(request)){
@@ -66,5 +54,25 @@ public class ResponseDeterminer {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public Response handleRoutedResponse(Request request) {
+        if(authenticator.requiresAuthentication(request)
+                && !authenticator.isAuthenticated(request)){
+            return new UnauthorizedResponse();
+        } else if(request.getHttpMethod().equals("PATCH")){
+            return handlePatchResponse(request);
+        } else {
+            return router.route(request);
+        }
+    }
+
+    public Response handlePatchResponse(Request request) {
+        String filePath = ((PatchResponse)router.route(request)).getFilePath();
+        if(!fileEtagMatchesGivenEtag(filePath, request.getHeaders().get("If-Match"))) {
+            return new PreconditionFailedResponse();
+        } else {
+            return router.route(request);
+        }
     }
 }
