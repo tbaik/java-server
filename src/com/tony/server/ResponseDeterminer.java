@@ -29,9 +29,13 @@ public class ResponseDeterminer {
             }
         } else if(uriList.contains(request.getURI())){
             return new MethodNotAllowedResponse();
-        } else if(request.getURI().startsWith("/parameters?")){
+        } else if(hasParameters(request)){
             return new ParameterDecodeResponse(request.getURI());
         }
         return new FourOhFourResponse();
+    }
+
+    private boolean hasParameters(Request request) {
+        return request.getURI().contains("?");
     }
 }
