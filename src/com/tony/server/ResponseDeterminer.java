@@ -2,6 +2,7 @@ package com.tony.server;
 
 import com.tony.server.response.FourOhFourResponse;
 import com.tony.server.response.MethodNotAllowedResponse;
+import com.tony.server.response.ParameterDecodeResponse;
 import com.tony.server.response.Response;
 import com.tony.server.response.UnauthorizedResponse;
 
@@ -28,7 +29,13 @@ public class ResponseDeterminer {
             }
         } else if(uriList.contains(request.getURI())){
             return new MethodNotAllowedResponse();
+        } else if(hasParameters(request)){
+            return new ParameterDecodeResponse(request.getURI());
         }
         return new FourOhFourResponse();
+    }
+
+    private boolean hasParameters(Request request) {
+        return request.getURI().contains("?");
     }
 }
