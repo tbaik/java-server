@@ -7,7 +7,6 @@ import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 
 public class ResponseTest {
-
     @Test
     public void testRespondBuildsResponseForExtendingClass() throws Exception {
         MockResponse mockResponse = new MockResponse();

@@ -25,7 +25,7 @@ public class LoggerTest {
     @Test
     public void testStoreLogAppendsStringToLog() throws Exception {
         Logger logger = new Logger();
-        logger.storeLog("Some Log Message");
+        logger.log("Some Log Message");
 
         assertEquals("Some Log Message\r\n", logger.getLog());
     }
@@ -33,7 +33,7 @@ public class LoggerTest {
     @Test
     public void testStoreLogPrintsMessageToConsole() throws Exception {
         Logger logger = new Logger();
-        logger.storeLog("Some Log Message!");
+        logger.log("Some Log Message!");
 
         assertEquals("Some Log Message!\n", outContent.toString());
     }

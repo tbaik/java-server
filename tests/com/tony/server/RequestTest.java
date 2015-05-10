@@ -6,7 +6,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 public class RequestTest {
-
     @Test
     public void testOverrideEqualsOnHTTPMethodAndURI() throws Exception {
         Request getRequest = new Request();
@@ -54,7 +53,6 @@ public class RequestTest {
         assertEquals("GET", request.getHttpMethod());
         assertEquals("/logs", request.getURI());
         assertEquals("Stuff\nHere\n", request.getBody());
-
     }
 
     @Test
@@ -64,7 +62,6 @@ public class RequestTest {
         request.addToHeaders("Allow", "blahblah");
 
         assertEquals("blahblah", request.getHeaders().get("Allow"));
-
     }
 
     @Test

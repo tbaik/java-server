@@ -27,7 +27,7 @@ public class LogResponseTest {
     public void testResponseContains200AndLogsFromLogger() throws Exception {
         Logger logger = new Logger();
         LogResponse logResponse = new LogResponse(logger);
-        logger.storeLog("This is a log");
+        logger.log("This is a log");
 
         assertEquals("HTTP/1.1 200 OK\r\n\r\nThis is a log\r\n",
                 new String(logResponse.respond()));

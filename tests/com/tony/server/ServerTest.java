@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class ServerTest {
-
     @Test
     public void testItAcceptsAClientRequest() throws Exception {
         Router router = new Router();
