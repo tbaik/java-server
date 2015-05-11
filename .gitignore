@@ -1,6 +1,6 @@
 *.class
-/META-INF
-.idea/
+!/.idea/
 public/form
 *.jar
 public/method_options
+java-server.iml

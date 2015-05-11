@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/server</output-path>
     <root id="archive" name="server.jar">
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
       </element>
       <element id="module-output" name="java-server" />
       <element id="library" level="module" name="JUnit4" module-name="java-server" />
