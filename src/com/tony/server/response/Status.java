@@ -3,6 +3,7 @@ package com.tony.server.response;
 public enum Status {
     OK("200", "OK"),
     NO_CONTENT("204", "No Content"),
+    PARTIAL_CONTENT("206", "Partial Content"),
     FOUND("302", "Found"),
     UNAUTHORIZED("401", "Unauthorized"),
     NOT_FOUND("404", "Not Found"),

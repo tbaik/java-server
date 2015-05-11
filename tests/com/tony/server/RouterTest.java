@@ -2,6 +2,7 @@ package com.tony.server;
 
 import com.tony.server.response.FileContentResponse;
 import com.tony.server.response.HeadResponse;
+import com.tony.server.response.PartialContentResponse;
 import com.tony.server.response.PutPostResponse;
 import com.tony.server.response.Response;
 import org.junit.Before;
@@ -41,6 +42,18 @@ public class RouterTest {
 
         assertEquals("data=hello", ((PutPostResponse) router.route(putRequest)).getRequestBody());
         new File(System.getProperty("user.dir") + "/public/form").delete();
+    }
+
+    @Test
+    public void testRouteForPartialContentSetsRangeHeader() throws Exception {
+        Request partialRequest = new Request("GET", "/partial_something");
+        partialRequest.addToHeaders("Range", "something in here");
+
+        Router router = new Router();
+        PartialContentResponse response = new PartialContentResponse("filepath");
+        router.addRoute(partialRequest, response);
+
+        assertEquals("something in here", ((PartialContentResponse) router.route(partialRequest)).getRangeHeader());
     }
 
     @Test

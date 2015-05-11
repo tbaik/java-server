@@ -94,7 +94,7 @@ public class ResponseDeterminerTest extends FileTest{
     public void testFourOhOneResponseOnRequiredAuthenticationButIsNotAuthenticated() throws Exception {
         Request request = getUnauthorizedUserRequest();
 
-        assertEquals(new UnauthorizedResponse().getClass(),
+        assertEquals(UnauthorizedResponse.class,
                 responseDeterminer.determineResponse(request).getClass());
     }
 

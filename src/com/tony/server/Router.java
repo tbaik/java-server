@@ -1,5 +1,6 @@
 package com.tony.server;
 
+import com.tony.server.response.PartialContentResponse;
 import com.tony.server.response.PutPostResponse;
 import com.tony.server.response.Response;
 
@@ -18,6 +19,9 @@ public class Router {
                     request.getHttpMethod().equals("POST") ||
                     request.getHttpMethod().equals("PATCH")){
                 ((PutPostResponse)routes.get(request)).setRequestBody(request.getBody());
+            } else if(request.getHeaders().containsKey("Range")) {
+                ((PartialContentResponse)routes.get(request)).setRangeHeader(
+                        request.getHeaders().get("Range"));
             }
             return routes.get(request);
         } else{
