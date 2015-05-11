@@ -16,6 +16,11 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+        Server server = createServer(args);
+        startServer(server);
+    }
+
+    public static Server createServer(String[] args) {
         ArgumentParser argumentParser = new ArgumentParser();
         argumentParser.parseArguments(args);
 
@@ -29,7 +34,10 @@ public class Main {
         ResponseDeterminer responseDeterminer =
                 new ResponseDeterminer(router, uriList, authenticator);
 
-        Server server = new Server(argumentParser.getPort(), responseDeterminer, logger);
+        return new Server(argumentParser.getPort(), responseDeterminer, logger);
+    }
+
+    public static void startServer(Server server) {
         new Thread(server).start();
     }
 

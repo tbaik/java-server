@@ -1,29 +1,54 @@
 package com.tony.server;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.net.Socket;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ServerTest {
-    @Test
-    public void testItAcceptsAClientRequest() throws Exception {
+    private Server server;
+    private Logger logger;
+    private ResponseDeterminer responseDeterminer;
+
+    @Before
+    public void setUp() throws Exception {
+        int port = 5005;
         Router router = new Router();
         ArrayList<String> uriList = new ArrayList<>();
-        Logger logger = new Logger();
+        logger = new Logger();
         Authenticator authenticator = new Authenticator(logger);
-        ResponseDeterminer responseDeterminer =
-                new ResponseDeterminer(router, uriList, authenticator);
-        Server server = new Server(4000, responseDeterminer, logger);
+        responseDeterminer = new ResponseDeterminer(router, uriList, authenticator);
 
+        server = new Server(port, responseDeterminer, logger);
+    }
+
+    @Test
+    public void testNewServerIsNotRunning() throws Exception {
+        assertFalse(server.isRunning());
+    }
+
+    @Test
+    public void testItAcceptsAClientRequest() throws Exception {
         new Thread(server).start();
-        Socket clientMockSocket = new Socket("localhost", 4000);
+
+        Socket clientMockSocket = new Socket("localhost", 5005);
         clientMockSocket.getOutputStream().write("GET / HTTP/1.1\n".getBytes());
-        assertEquals(4000, server.getServerSocket().getLocalPort());
-        assertEquals(clientMockSocket.getChannel() ,
+
+        assertEquals(5005, server.getServerSocket().getLocalPort());
+        assertEquals(clientMockSocket.getChannel(),
                 server.getServerSocket().getChannel());
     }
 
+    @Test
+    public void testOpenSocketSetsServerSocketPortAndStartsServer() throws Exception {
+        Server newServer = new Server(5050, responseDeterminer, logger);
+        newServer.openSocket();
+        assertTrue(newServer.isRunning());
+        assertTrue(newServer.getServerSocket() != null);
+    }
 }
