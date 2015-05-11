@@ -55,4 +55,62 @@ public class PartialContentResponseTest extends FileTest{
 
         assertEquals(expectedPartialContent, response.getPartialContent(wholeFileString));
     }
+
+    @Test
+    public void testGetRange() throws Exception {
+        response.setRangeHeader("byte=1-7");
+        String expectedRangeString = "1-7";
+
+        assertEquals(expectedRangeString, response.getRange());
+    }
+
+    @Test
+    public void testGetBeginningIndexReturnsLengthMinusEndingIndexWhenStartsWithIndexSeparator() throws Exception {
+        String range = "-6";
+        String[] indices = range.split("-");
+        int expectedBeginningIndex = wholeFileString.length() - 6;
+
+        assertEquals(expectedBeginningIndex,
+                response.getBeginningIndex(wholeFileString.length(), range, indices));
+    }
+
+    @Test
+    public void testGetBeginningIndexReturnsFirstIntegerElseWise() throws Exception {
+        String range = "2-6";
+        String[] indices = range.split("-");
+        int expectedBeginningIndex = 2;
+
+        assertEquals(expectedBeginningIndex,
+                response.getBeginningIndex(wholeFileString.length(), range, indices));
+    }
+
+    @Test
+    public void testGetEndingIndexReturnsWholeFileLengthIfRangeStartsWithIndexSeparator() throws Exception {
+        String range = "-6";
+        String[] indices = range.split("-");
+        int expectedEndingIndex = wholeFileString.length();
+
+        assertEquals(expectedEndingIndex,
+                response.getEndingIndex(wholeFileString.length(), range, indices));
+    }
+
+    @Test
+    public void testGetEndingIndexReturnsWholeFileLengthIfRangeEndsWithIndexSeparator() throws Exception {
+        String range = "6-";
+        String[] indices = range.split("-");
+        int expectedEndingIndex = wholeFileString.length();
+
+        assertEquals(expectedEndingIndex,
+                response.getEndingIndex(wholeFileString.length(), range, indices));
+    }
+
+    @Test
+    public void testGetEndingIndexReturnsGivenEndingIndexPlusOneWhenHasBothIndices() throws Exception {
+        String range = "2-6";
+        String[] indices = range.split("-");
+        int expectedEndingIndex = 7;
+
+        assertEquals(expectedEndingIndex,
+                response.getEndingIndex(wholeFileString.length(), range, indices));
+    }
 }
