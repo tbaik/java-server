@@ -3,4 +3,4 @@
 public/form
 *.jar
 public/method_options
-java-server.iml
+*.iml
