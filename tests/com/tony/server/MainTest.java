@@ -49,8 +49,7 @@ public class MainTest {
         Server server = Main.createServer(args);
         Main.startServer(server);
 
-        Socket clientMockSocket = new Socket("localhost", 6005);
-        clientMockSocket.getOutputStream().write("GET / HTTP/1.1\n".getBytes());
+        Socket clientSocket = new Socket("localhost", 6005);
         assertEquals(6005, server.getServerSocket().getLocalPort());
     }
 
@@ -66,8 +65,7 @@ public class MainTest {
 
         Main.startServer(server);
 
-        Socket clientMockSocket = new Socket("localhost", 6000);
-        clientMockSocket.getOutputStream().write("GET / HTTP/1.1\n".getBytes());
+        Socket clientSocket = new Socket("localhost", 6000);
         assertTrue(server.isRunning());
     }
 }
