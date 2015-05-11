@@ -5,7 +5,6 @@
 In the project directory:
 
 ```
-mvn clean install
 mvn clean package
 ```
 
